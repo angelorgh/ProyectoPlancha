@@ -60,7 +60,7 @@ class Application(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
-        self.canvas = tk.Canvas(self, width=400, height=400, bg='white')
+        self.canvas = tk.Canvas(self, width=800, height=480, bg='white')
         self.canvas.grid(row=0, column=0, columnspan=2)
 
         self.progressbar = CircularProgressbar(self.canvas, 0, 0, 400, 400, 60)
