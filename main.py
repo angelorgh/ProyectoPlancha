@@ -6,6 +6,7 @@ except ImportError:  # Python 3
     import tkinter as tk
     import tkinter.font as tkFont
     import tkinter.ttk as ttk
+    import reference
 
 
 class CircularProgressbar(object):
@@ -64,8 +65,8 @@ class Application(tk.Frame):
         self.canvas.grid(row=0, column=0, columnspan=2)
 
         self.progressbar = CircularProgressbar(self.canvas, 0, 0, 400, 400, 60)
-
-        self.pauseButton = tk.Button(self, text='Pause', command=self.pause)
+        number = reference.number()
+        self.pauseButton = tk.Button(self, text=number, command=self.pause)
         self.pauseButton.grid(row=1, column=0)
         self.quitButton = tk.Button(self, text='Quit', command=self.quit)
         self.quitButton.grid(row=1, column=1)
