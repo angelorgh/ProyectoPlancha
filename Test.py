@@ -8,10 +8,10 @@ root.geometry("800x480")
 # Create a new Tk object
 
 # Load the image files
-image1 = Image.open("youtube-play-button.png")
+image1 = Image.open("icons/youtube-play-button.png")
 image1 = ImageTk.PhotoImage(image1)
 
-image2 = Image.open("stop-button.png")
+image2 = Image.open("icons/stop-button.png")
 image2 = ImageTk.PhotoImage(image2)
 
 # Create three buttons and position them using the grid layout manager
