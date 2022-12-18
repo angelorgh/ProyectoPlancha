@@ -1,2 +1,2 @@
-def number():
-    return 79
+nombre = input()
+print(nombre)

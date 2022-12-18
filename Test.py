@@ -12,8 +12,16 @@ root.geometry("800x480")
 
 
 
-root.rowconfigure((0,1), weight=1)  # make buttons stretch when
-root.columnconfigure((0,2), weight=1)
+root.rowconfigure(0, weight=1)  # make buttons stretch when
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=2)
+# root.rowconfigure(1, weight=1)
+# root.rowconfigure(2, weight=1)
+# root.rowconfigure(3, weight=1)
+# root.rowconfigure(4, weight=1) 
+
+root.columnconfigure(1, weight=3)
+
 bgcolor1 = '#1E1D1D'
 fgcolor1 = '#FF5757'
 root.configure(bg=bgcolor1)
@@ -39,15 +47,30 @@ label1.grid(row=0, column=0, sticky='N', columnspan=3)
 # label1.place(anchor='center')
 
 # Create three buttons and position them using the grid layout manager
-button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins)#, activebackground=bgcolor1)
-button1.grid(row=1, column=0, sticky="NWES")
-button2 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins)#, activebackground=bgcolor1)
-button2.grid(row=2, column=0, sticky="NWES")
+button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125)#, activebackground=bgcolor1)
+button1.grid(row=1, column=0, sticky="W", padx=20, rowspan=2)
+button2 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125)#, activebackground=bgcolor1)
+button2.grid(row=3, column=0, sticky="W", padx=20, rowspan=2)
 
-button3 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins)#, activebackground=bgcolor1)
-button3.grid(row=1, column=3, sticky="NWES")
-button4 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins)#, activebackground=bgcolor1)
-button4.grid(row=2, column=3, sticky="NWES")
+# button5 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins)#, activebackground=bgcolor1)
+# button5.grid(row=1, column=1, sticky="NS", rowspan=2)
+# button6 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins)#, activebackground=bgcolor1)
+# button6.grid(row=2, column=1, sticky="NS", rowspan=2)
+
+label2 = tk.Label(root, text="Temp", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1)
+label2.grid(row=1, column=2,padx=20, sticky="EN")
+value1 = tk.Label(root, text="147°C", font=Titlepoppins, bg=bgcolor1, fg='white')
+value1.grid(row=2, column=2, padx=20,sticky='EN')
+
+label3 = tk.Label(root, text="Estatus", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1)
+label3.grid(row=3, column=2, padx=20,sticky="EN")
+value2 = tk.Label(root, text="Ok", font=Titlepoppins, bg=bgcolor1, fg='white')
+value2.grid(row=4, column=2, padx=20,sticky="EN")
+
+# button3 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75)#, activebackground=bgcolor1)
+# button3.grid(row=1, column=2, sticky="E", padx=20)
+# button4 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75)#, activebackground=bgcolor1)
+# button4.grid(row=2, column=2, sticky="E", padx=20)
 # Create a flag variable to keep track of the state of the button
 button1_is_clicked = False
 
