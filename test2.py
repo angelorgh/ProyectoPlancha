@@ -37,19 +37,19 @@ label1.grid(row=0, column=0, sticky='N', columnspan=3)
 
 # Create three buttons and position them using the grid layout manager
 button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125)#, activebackground=bgcolor1)
-button1.place(x=20, rely=0.5,relheight=0.40, relwidth=0.15, anchor='w')
+button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
 button2 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125)#, activebackground=bgcolor1)
-button2.place(x=20, rely=0.85, relheight=0.40, relwidth=0.15,anchor='w')
+button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
 
 label2 = tk.Label(root, text="Temp", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1)
-label2.place(x=20, rely=0.5,relheight=0.40, relwidth=0.15, anchor='e')
+label2.place(x=-20,relx=1, rely=0.45,relheight=0.20, relwidth=0.15, anchor='e')
 value1 = tk.Label(root, text="147°C", font=Titlepoppins, bg=bgcolor1, fg='white')
-value1.grid(row=2, column=2, sticky='EN')
+value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.15, anchor='e')
 
 label3 = tk.Label(root, text="Estatus", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1)
-label3.grid(row=3, column=2, sticky="EN")
+label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.15, anchor='e')
 value2 = tk.Label(root, text="Ok", font=Titlepoppins, bg=bgcolor1, fg='white')
-value2.grid(row=4, column=2, sticky="EN")
+value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.15, anchor='e')
 
 # Start the event loop
 root.mainloop()
