@@ -81,9 +81,9 @@ root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=2)
 
 root.columnconfigure(1, weight=3)
-
+root.config(cursor="none")
 root.configure(bg=bgcolor1)
-# root.attributes("-fullscreen", True)
+root.attributes("-fullscreen", True)
 
 
 # Load the image files
