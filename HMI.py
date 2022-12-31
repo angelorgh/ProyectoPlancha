@@ -9,9 +9,17 @@ from PIL import Image, ImageTk
 from WrinklessBE.server import WebSocketServer
 import asyncio
 import WrinklessBE.client as client
+import time
 
-# server = WebSocketServer("localhost", 8000)
-# server.start()
+server = WebSocketServer("localhost", 8000)
+server.start()
+
+def on_start_click():
+    global estatus
+    estatus = asyncio.get_event_loop().run_until_complete(client.send_message("Inicializando"))
+    # time.sleep(1)
+    value2.config(text=estatus)
+
 
 root = tk.Tk()
 root.geometry("800x480")
@@ -26,7 +34,7 @@ poppins2 = tkFont.Font(family='Poppins', size=25, weight=tkFont.BOLD)
 Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
 
 # Valor
-estatus = "Ok"
+# estatus =  on_start_click()
 
 class CircularProgressbar(object):
     def __init__(self, canvas, x0, y0, x1, y1, width=2, start_ang=0, full_extent=360.):
@@ -103,8 +111,7 @@ image2 = ImageTk.PhotoImage(image2)
 label1 = tk.Label(root, text="Wrinkless", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1, pady=20)
 label1.grid(row=0, column=0, sticky='N', columnspan=3)
 
-def on_start_click():
-    estatus = asyncio.get_event_loop().run_until_complete(client.send_message("Hello, WebSocket!"))
+
 
 #  Botones izquierda
 button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=on_start_click)
@@ -127,9 +134,11 @@ label2.place(x=-20,relx=1, rely=0.45,relheight=0.20, relwidth=0.20, anchor='e')
 value1 = tk.Label(root, text="147°C", font=poppins2, bg=bgcolor1, fg='white')
 value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
 
+
+
 label3 = tk.Label(root, text="Estatus", font=poppins2, bg=bgcolor1, fg=fgcolor1)
 label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
-value2 = tk.Label(root, text=estatus, font=poppins2, bg=bgcolor1, fg='white')
+value2 = tk.Label(root, font=poppins2, bg=bgcolor1, fg='white')
 value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
 
 

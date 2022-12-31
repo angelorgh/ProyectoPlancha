@@ -4,31 +4,37 @@ import websockets
 
 
 
-def call_script(self):
-    process = subprocess.Popen(['python', filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    process.wait()
-    self.output, self.error = process.communicate()
+# def call_script(self):
+#     process = subprocess.Popen(['python', filename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#     process.wait()
+#     self.output, self.error = process.communicate()
 
-    if self.error != None:
-        raise Exception(self.error.decode("utf-8"))
-    self.output = self.output.decode("utf-8")
+#     if self.error != None:
+#         raise Exception(self.error.decode("utf-8"))
+#     self.output = self.output.decode("utf-8")
 
-    return self.output
+#     return self.output
 
-def stop_script(self):
-    process = subprocess.Popen(['python', filename])
-    try:
-        process.terminate()
-    except Exception as e:
-        # process.kill()
-        raise Exception(f"Error! Tratando de terminar el progrma. Inner exception {e}")
+# def stop_script(self):
+#     process = subprocess.Popen(['python', filename])
+#     try:
+#         process.terminate()
+#     except Exception as e:
+#         # process.kill()
+#         raise Exception(f"Error! Tratando de terminar el progrma. Inner exception {e}")
 
-class Server:
-    async def echo(websocket, path):
+
+class WebSocketServer:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+
+    async def echo(self, websocket, path):
         async for message in websocket:
             await websocket.send(message)
 
-    start_server = websockets.serve(echo, "localhost", 8000)
+    def start(self):
+        start_server = websockets.serve(self.echo, self.host, self.port)
+        asyncio.get_event_loop().run_until_complete(start_server)
 
-    asyncio.get_event_loop().run_until_complete(start_server)
-    asyncio.get_event_loop().run_forever()
+
