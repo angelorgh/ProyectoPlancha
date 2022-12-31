@@ -1,4 +1,4 @@
-from cgitb import text
+# from cgitb import text
 from logging.handlers import RotatingFileHandler
 import tkinter as tk
 from tkinter import ttk
@@ -6,10 +6,12 @@ from tkinter import font as tkFont
 from turtle import color
 # Import the Image and ImageTk modules to load and display the image
 from PIL import Image, ImageTk
+from WrinklessBE.server import WebSocketServer
+import asyncio
+import WrinklessBE.client as client
 
-
-
-
+# server = WebSocketServer("localhost", 8000)
+# server.start()
 
 root = tk.Tk()
 root.geometry("800x480")
@@ -22,6 +24,9 @@ fgcolor1 = '#FF5757'
 poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
 poppins2 = tkFont.Font(family='Poppins', size=25, weight=tkFont.BOLD)
 Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
+
+# Valor
+estatus = "Ok"
 
 class CircularProgressbar(object):
     def __init__(self, canvas, x0, y0, x1, y1, width=2, start_ang=0, full_extent=360.):
@@ -98,8 +103,11 @@ image2 = ImageTk.PhotoImage(image2)
 label1 = tk.Label(root, text="Wrinkless", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1, pady=20)
 label1.grid(row=0, column=0, sticky='N', columnspan=3)
 
+def on_start_click():
+    estatus = asyncio.get_event_loop().run_until_complete(client.send_message("Hello, WebSocket!"))
+
 #  Botones izquierda
-button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125, highlightthickness=0)
+button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=on_start_click)
 button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
 button2 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125, highlightthickness=0)
 button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
@@ -121,8 +129,9 @@ value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
 
 label3 = tk.Label(root, text="Estatus", font=poppins2, bg=bgcolor1, fg=fgcolor1)
 label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
-value2 = tk.Label(root, text="Ok", font=poppins2, bg=bgcolor1, fg='white')
+value2 = tk.Label(root, text=estatus, font=poppins2, bg=bgcolor1, fg='white')
 value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
+
 
 # Start the event loop
 root.mainloop()
