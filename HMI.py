@@ -16,7 +16,7 @@ server.start()
 
 def on_start_click():
     global estatus
-    estatus = asyncio.get_event_loop().run_until_complete(client.send_message("Inicializando"))
+    estatus = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
     # time.sleep(1)
     value2.config(text=estatus)
 

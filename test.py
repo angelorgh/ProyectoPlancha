@@ -20,7 +20,7 @@ async def send_message(message):
         await websocket.send(message)
 
 def on_button_click():
-    asyncio.get_event_loop().run_until_complete(send_message("Hello, WebSocket!"))
+    asyncio.get_event_loop().run_until_complete(send_message("300"))
 
 server = WebSocketServer("localhost", 8000)
 server.start()
