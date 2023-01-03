@@ -25,16 +25,16 @@ async def write_to_file(filename):
         while i < 1500:
             i += 1
             file.write(f'\n"{i}":"line{i}",')
-            await asyncio.sleep(0.01)  # pause for 0.1 seconds
+            await asyncio.sleep(0.1)  # pause for 0.1 seconds
 
 async def read_from_file(filename):
     with open(filename, 'r') as file:
         while True:
             data = file.read(1024)
-            if not data:
-                break
-            print(data)  # add a print statement here to print the data
-            await asyncio.sleep(0.1)  # pause for 0.1 seconds
+            # print(f"data: {data}")
+            if data != None:
+                print(data)  # add a print statement here to print the data
+                await asyncio.sleep(1)  # pause for 0.1 seconds
 
 async def main():
     filename = './data/data.json'
