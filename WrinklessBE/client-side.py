@@ -32,7 +32,7 @@ async def read_from_file(filename):
         while True:
             data = file.read(1024)
             # print(f"data: {data}")
-            if data != None:
+            if data != '':
                 print(data)  # add a print statement here to print the data
                 await asyncio.sleep(1)  # pause for 0.1 seconds
 
