@@ -1,11 +1,26 @@
+String nom = "Arduino";
+String msg;
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.print("Hola\n");
+ 	Serial.begin(9600);
 }
-
 void loop() {
-  // put your main code here, to run repeatedly:
-  
-  
+ 	readSerialPort();
+ 	if (msg == "Start") {
+ 			sendData();
+ 	}
+ 	delay(500);
+}
+void readSerialPort() {
+ 	msg = "";
+ 	if (Serial.available()) {
+ 			delay(10);
+ 			while (Serial.available() > 0) {
+ 					msg += (char)Serial.read();
+ 			}
+ 			Serial.flush();
+ 	}
+}
+void sendData() {
+ 	//write data
+ 	Serial.print("332,163,283,602,1533,1955,89");
 }
