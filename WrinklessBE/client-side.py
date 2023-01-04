@@ -18,7 +18,8 @@
 #             print(file.read())
 
 import asyncio
-
+import json
+from models.TempRules import TempRule
 async def write_to_file(filename):
     with open(filename, 'w+') as file:
         i = 0
@@ -43,7 +44,13 @@ async def main():
     read_task = asyncio.create_task(read_from_file(filename))
     # wait for both tasks to complete
     await asyncio.gather(write_task, read_task)
+def getTimeTemp(color):
+        # self.logging.debug('Event getTimeTemp fired')
+        f = open('./data/temprules.json')
+        rules = json.load(f)
+        return TempRule(rules[color]).temp , TempRule(rules[color]).time
 
 if __name__ == '__main__':
     # run the main function
-    asyncio.run(main())
+    print(getTimeTemp('red'))
+    # asyncio.run(main())

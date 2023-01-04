@@ -1,0 +1,5 @@
+{
+    "red": {"temp": 147, "time":500},
+    "blue": {"temp": 130, "time":600},
+    "green": {"temp": 150, "time":300}
+}

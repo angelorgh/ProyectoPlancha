@@ -4,7 +4,8 @@ import websockets
 import serial
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
 import logging
-
+import json
+from WrinklessBE.models.TempRules import TempRule
 class WebSocketServer:
     def __init__(self, host, port):
         self.host = host
@@ -39,6 +40,11 @@ class WebSocketServer:
         self.logging.debug('Event parseRGBColor fired')
         rgb = rgbstring.split(',')
         return rgb
+    def getTimeTemp(self, color):
+        self.logging.debug('Event getTimeTemp fired')
+        f = open('./data/temprules.json')
+        rules = json.load(f)
+        return TempRule(rules[color])
 
     async def echo(self, websocket, path):
         async for message in websocket:
@@ -54,7 +60,7 @@ class WebSocketServer:
         try:
             start_server = websockets.serve(self.echo, self.host, self.port)
             asyncio.get_event_loop().run_until_complete(start_server)
-            self.logging.debug('WEBSOCKET SERVER STARTED')
+            self.logging.info('WEBSOCKET SERVER STARTED')
         except Exception as e:
             self.logging.error(f"Error iniciando servidor de WebSockets. InnerException: {e}")
     
