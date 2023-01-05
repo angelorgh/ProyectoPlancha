@@ -1,13 +1,14 @@
 String msg = "";
 void setup() {
  	Serial.begin(9600);
- 
+  pinMode(8, OUTPUT);
 }
 void loop() {
   readSerialPort();
   int num = msg.toInt();
   if (num == 200) {
     sendData("332,163,283,602,1533,1955,89");
+    digitalWrite(8, HIGH);
     // exit(0);
   }
   if(num == 1){
