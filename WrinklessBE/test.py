@@ -71,4 +71,4 @@ def writeToSerial(message):
 if __name__ == '__main__':
     # run the main function
     print(readFromSerial())
-    writeToSerial("200")
+    # writeToSerial("200")
