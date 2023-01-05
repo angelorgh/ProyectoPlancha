@@ -6,8 +6,12 @@ void setup() {
 void loop() {
  	readSerialPort();
  	if (msg == "Start") {
- 			sendData();
+ 			sendData("332,163,283,602,1533,1955,89");
  	}
+	else
+	{
+		sendData(msg)
+	}
  	delay(500);
 }
 void readSerialPort() {
@@ -20,7 +24,7 @@ void readSerialPort() {
  			Serial.flush();
  	}
 }
-void sendData() {
+void sendData(msg) {
  	//write data
- 	Serial.print("332,163,283,602,1533,1955,89");
+ 	Serial.print(msg);
 }

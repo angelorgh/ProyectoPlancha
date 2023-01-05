@@ -14,11 +14,15 @@ import time
 server = WebSocketServer("localhost", 8000)
 server.start()
 
+
 def on_start_click():
     global estatus
-    estatus = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
-    # time.sleep(1)
-    value2.config(text=estatus)
+    value2.config(text='Iniciando')
+    temprule = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+    value2.config(text='Planchando')
+    progressbar.start(interval=temprule.time)
+    time.sleep(1)
+    
 
 
 root = tk.Tk()
@@ -125,7 +129,7 @@ canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=
 
 progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
 canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
-progressbar.start()
+
 #progressbar.step(1)
 
 #  Texto derecha
@@ -138,7 +142,7 @@ value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
 
 label3 = tk.Label(root, text="Estatus", font=poppins2, bg=bgcolor1, fg=fgcolor1)
 label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
-value2 = tk.Label(root, font=poppins2, bg=bgcolor1, fg='white')
+value2 = tk.Label(root, text='En Espera',font=poppins2, bg=bgcolor1, fg='white')
 value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
 
 

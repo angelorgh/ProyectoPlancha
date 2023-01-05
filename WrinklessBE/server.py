@@ -1,5 +1,6 @@
 import asyncio
 from fileinput import filename
+from sklearn.cluster import mean_shift
 import websockets
 import serial
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
@@ -22,24 +23,32 @@ class WebSocketServer:
                 line = ser.readline().decode('utf-8').rstrip()
                 return(line)
 
-    def writeToSerial(self):
+    def writeToSerial(self, message):
         self.logging.debug('Event writeToSerial fired')
-        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-        ser.reset_input_buffer()
-        ser.write("Start")
+        try:
+            ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+            ser.reset_input_buffer()
+            ser.write("Start")
+        except Exception as e:
+            self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
+        finally:
+            self.logging.info(f"Se ha enviado a serial correctamente. Valor: {message}")        
     
     def callAiModel (self, rgb):
         self.logging.debug('Event callAiModel fired')
         try:
-            name= SpectColorClassifier.classify(rgb)
+            name = SpectColorClassifier.classify(rgb)
             return name
         except Exception as e:
             self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
+        finally:
+            self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
     
     def parseRGBColor (self,rgbstring):
         self.logging.debug('Event parseRGBColor fired')
         rgb = rgbstring.split(',')
         return rgb
+    
     def getTimeTemp(self, color):
         self.logging.debug('Event getTimeTemp fired')
         f = open('./data/temprules.json')
@@ -48,19 +57,23 @@ class WebSocketServer:
 
     async def echo(self, websocket, path):
         async for message in websocket:
-            if message == "300":
-                await websocket.send(self.readFromSerial())
             if message == "100":
+                self.writeToSerial('Start')
                 rgb = self.readFromSerial()
-                name = self.callAiModel(self, rgb)
-                await websocket.send(name)
+                color = self.callAiModel(self, rgb)
+                temprule = self.getTimeTemp(color)
+                self.writeToSerial(str(temprule.rulesstring))
+                finish = self.readFromSerial()
+                self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
+                await websocket.send(temprule)
 
     def start(self):
         self.logging.debug('Starting WebSocket')
         try:
             start_server = websockets.serve(self.echo, self.host, self.port)
             asyncio.get_event_loop().run_until_complete(start_server)
-            self.logging.info('WEBSOCKET SERVER STARTED')
         except Exception as e:
             self.logging.error(f"Error iniciando servidor de WebSockets. InnerException: {e}")
+        finally:
+            self.logging.info('WEBSOCKET SERVER STARTED')
     

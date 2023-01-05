@@ -20,6 +20,7 @@
 import asyncio
 import json
 from models.TempRules import TempRule
+from AI.Spect_ColorClassifier import SpectColorClassifier
 async def write_to_file(filename):
     with open(filename, 'w+') as file:
         i = 0
@@ -48,9 +49,15 @@ def getTimeTemp(color):
         # self.logging.debug('Event getTimeTemp fired')
         f = open('./data/temprules.json')
         rules = json.load(f)
-        return TempRule(rules[color]).temp , TempRule(rules[color]).time
+        try:
+            return TempRule(rules[color]).rulesstring
+        except Exception as e:
+            print(e)
+        finally:
+            print('fin')
 
 if __name__ == '__main__':
     # run the main function
-    print(getTimeTemp('red'))
+    print(str(getTimeTemp('red')))
+    print(type(str(getTimeTemp('red'))))
     # asyncio.run(main())
