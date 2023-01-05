@@ -28,7 +28,7 @@ class WebSocketServer:
         try:
             ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
             ser.reset_input_buffer()
-            ser.write("Start")
+            ser.write(message.encode())
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
         finally:
