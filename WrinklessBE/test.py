@@ -70,5 +70,5 @@ def writeToSerial(message):
             print(f"Se ha enviado a serial correctamente. Valor: {message}")   
 if __name__ == '__main__':
     # run the main function
+    print(readFromSerial())
     writeToSerial("200")
-    
