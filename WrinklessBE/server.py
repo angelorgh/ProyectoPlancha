@@ -58,7 +58,7 @@ class WebSocketServer:
     async def echo(self, websocket, path):
         async for message in websocket:
             if message == "100":
-                self.writeToSerial('Start')
+                self.writeToSerial('200')
                 rgb = self.readFromSerial()
                 color = self.callAiModel(self, rgb)
                 temprule = self.getTimeTemp(color)
