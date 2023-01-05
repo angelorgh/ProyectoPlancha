@@ -5,16 +5,21 @@ void setup() {
 }
 void loop() {
   readSerialPort();
-  int num = msg.toInt();
-  if (num == 200) {
-    sendData("332,163,283,602,1533,1955,89");
+  // int num = msg.toInt();
+  // if (num == 200) {
+  //   sendData("332,163,283,602,1533,1955,89");
+  //   digitalWrite(8, HIGH);
+  //   // exit(0);
+  // }
+  if(msg != ""){
     digitalWrite(8, HIGH);
-    // exit(0);
-  }
-  if(num == 1){
     sendData(msg);
-    exit(0);
   }
+  // if(num == 1){
+  //   sendData(msg);
+  //   exit(0);
+  // }
+
   // delay(10);
 }
 void readSerialPort() {

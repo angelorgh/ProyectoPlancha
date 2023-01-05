@@ -46,11 +46,21 @@ async def main():
     read_task = asyncio.create_task(read_from_file(filename))
     # wait for both tasks to complete
     await asyncio.gather(write_task, read_task)
-
+def readFromSerial():
+        print('Event readFromSerial fired')
+        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+        # ser.reset_input_buffer()
+        while True:
+            print(f"Valor del serial: {ser.in_waiting}")
+            if ser.in_waiting > 0:
+                line = ser.readline().decode('utf-8').rstrip()
+                print(f"Se leyo de arduino correctamente. Valor {line}")
+                return(line)
 def writeToSerial(message):
         print('Event writeToSerial fired')
         try:
             ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+            ser.reset_output_buffer()
             # ser.reset_input_buffer()
             ser.write(message.encode('utf-8'))
             # ser.reset_input_buffer()
