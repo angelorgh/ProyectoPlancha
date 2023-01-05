@@ -1,6 +1,7 @@
 String msg = "";
 void setup() {
  	Serial.begin(9600);
+ 
 }
 void loop() {
   readSerialPort();
@@ -13,7 +14,7 @@ void loop() {
     sendData(msg);
     exit(0);
   }
-  delay(100);
+  // delay(10);
 }
 void readSerialPort() {
   msg = "";

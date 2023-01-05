@@ -18,7 +18,7 @@ class WebSocketServer:
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-        ser.reset_input_buffer()
+        # ser.reset_input_buffer()
         while True:
             self.logging.info(f"Valor del serial: {ser.in_waiting}")
             if ser.in_waiting > 0:
@@ -32,6 +32,7 @@ class WebSocketServer:
             ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
             ser.reset_input_buffer()
             ser.write(message.encode())
+            ser.reset_input_buffer()
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
         finally:
