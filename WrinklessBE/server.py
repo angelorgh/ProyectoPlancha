@@ -62,7 +62,7 @@ class WebSocketServer:
                 rgb = self.readFromSerial()
                 color = self.callAiModel(self, rgb)
                 temprule = self.getTimeTemp(color)
-                self.writeToSerial(str(temprule.rulesstring))
+                self.writeToSerial(str(temprule.num))
                 finish = self.readFromSerial()
                 self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                 await websocket.send(temprule)

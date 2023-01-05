@@ -3,3 +3,4 @@ class TempRule:
         self.rulesstring = rulesstring
         self.temp = rulesstring['temp']
         self.time = rulesstring['time']
+        self.num = rulesstring['num']
