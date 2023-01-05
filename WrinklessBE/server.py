@@ -21,6 +21,7 @@ class WebSocketServer:
         while True:
             if ser.in_waiting > 0:
                 line = ser.readline().decode('utf-8').rstrip()
+                self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
                 return(line)
 
     def writeToSerial(self, message):
