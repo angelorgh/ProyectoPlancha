@@ -61,10 +61,12 @@ def writeToSerial(message):
         print('Event writeToSerial fired')
         try:
             ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-            ser.reset_input_buffer()
+            # ser.reset_input_buffer()
             # ser.reset_input_buffer()
 
             ser.write(message.encode('utf-8'))
+            data = ser.read_until()
+            print(data)
             time.sleep(10)
             # ser.reset_input_buffer()
         except Exception as e:
