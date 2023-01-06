@@ -12,7 +12,7 @@ void loop() {
   //   digitalWrite(8, HIGH);
   //   // exit(0);
   // }
-  if(msg != ""){
+  if(strcmp(msg, "") = 1){
     digitalWrite(8, HIGH);
     sendData(msg);
   }

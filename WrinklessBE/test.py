@@ -57,13 +57,18 @@ def readFromSerial():
                 line = ser.readline().decode('utf-8').rstrip()
                 print(f"Se leyo de arduino correctamente. Valor {line}")
                 return(line)
-def writeToSerial():
+def writeToSerial(serial):
         print('Event writeToSerial fired')
-        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-        ser.write(b'200')
+        serial.write(b'200')
         print('Se ha enviado')
 if __name__ == '__main__':
     # run the main function
-    writeToSerial()
+    try:
+        ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
+    except:
+        ser = serial.Serial("/dev/ttyACM1", 115200, timeout=3000)
+    
+    ser.reset_input_buffer()
+    writeToSerial(ser)
     print(readFromSerial())
     
