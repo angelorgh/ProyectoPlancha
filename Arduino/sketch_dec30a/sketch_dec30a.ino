@@ -1,4 +1,4 @@
-String msg = "";
+int num = 0;
 void setup() {
  	Serial.begin(9600);
   pinMode(8, OUTPUT);
@@ -12,9 +12,11 @@ void loop() {
   //   digitalWrite(8, HIGH);
   //   // exit(0);
   // }
-  if(strcmp(msg, "") = 1){
+  // int result = strcmp(msg, "");
+  
+  if(num != 0){
     digitalWrite(8, HIGH);
-    sendData(msg);
+    sendData(num);
   }
   // if(num == 1){
   //   sendData(msg);
@@ -24,20 +26,17 @@ void loop() {
   // delay(10);
 }
 void readSerialPort() {
-  msg = "";
-  while (Serial.available() > 0) {
-    msg = Serial.readString();
-  }
-  
-  Serial.flush();
+  num = 0;
+  while(!Serial.available());
+  num = Serial.parseInt();  
 }
 
 
 
-void sendData(String val1) {
+void sendData(int val1) {
  	//write data
- 	Serial.print(val1 + "\n");
-   delay(500);
+ 	Serial.print(val1);
+  Serial.print("\n");
 }
 
 void simulate(){
