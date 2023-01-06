@@ -49,18 +49,15 @@ async def main():
     await asyncio.gather(write_task, read_task)
 def readFromSerial(serial):
         print('Event readFromSerial fired')
-        # ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-        # ser.reset_input_buffer()
         line = serial.read_until().decode()
         print(f"Se leyo de arduino correctamente. Valor {line}")
         return(line)
 
 def writeToSerial(serial):
         print('Event writeToSerial fired')
-        serial.write(b'200')
+        serial.write(b'200x')
         print('Se ha enviado')
 if __name__ == '__main__':
-    # run the main function
     try:
         ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
     except:
@@ -69,4 +66,3 @@ if __name__ == '__main__':
     ser.reset_input_buffer()
     writeToSerial(ser)
     print(readFromSerial(ser))
-    
