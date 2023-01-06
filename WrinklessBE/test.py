@@ -57,24 +57,13 @@ def readFromSerial():
                 line = ser.readline().decode('utf-8').rstrip()
                 print(f"Se leyo de arduino correctamente. Valor {line}")
                 return(line)
-def writeToSerial(message):
+def writeToSerial():
         print('Event writeToSerial fired')
-        try:
-            ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-            # ser.reset_input_buffer()
-            # ser.reset_input_buffer()
-
-            ser.write(message.encode('utf-8'))
-            data = ser.read_until()
-            print(data)
-            time.sleep(10)
-            # ser.reset_input_buffer()
-        except Exception as e:
-            print(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
-        finally:
-            print(f"Se ha enviado a serial correctamente. Valor: {message}")   
+        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+        ser.write(b'200')
+        print('Se ha enviado')
 if __name__ == '__main__':
     # run the main function
-    writeToSerial("200")
+    writeToSerial()
     print(readFromSerial())
     
