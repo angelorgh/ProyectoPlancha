@@ -1,6 +1,7 @@
 int num = 0;
 void setup() {
- 	Serial.begin(115200);
+  while (!Serial);
+ 	Serial.begin(9600);
   pinMode(8, OUTPUT);
 }
 void loop() {
