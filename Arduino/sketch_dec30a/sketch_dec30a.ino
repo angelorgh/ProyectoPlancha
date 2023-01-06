@@ -5,6 +5,7 @@ void setup() {
 }
 void loop() {
   readSerialPort();
+  
   // int num = msg.toInt();
   // if (num == 200) {
   //   sendData("332,163,283,602,1533,1955,89");

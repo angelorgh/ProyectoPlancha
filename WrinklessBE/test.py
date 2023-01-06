@@ -22,6 +22,7 @@ import json
 from models.TempRules import TempRule
 from AI.Spect_ColorClassifier import SpectColorClassifier
 import serial
+import time
 async def write_to_file(filename):
     with open(filename, 'w+') as file:
         i = 0
@@ -51,7 +52,7 @@ def readFromSerial():
         ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
         # ser.reset_input_buffer()
         while True:
-            print(f"Valor del serial: {ser.in_waiting}")
+            # print(f"Valor del serial: {ser.in_waiting}")
             if ser.in_waiting > 0:
                 line = ser.readline().decode('utf-8').rstrip()
                 print(f"Se leyo de arduino correctamente. Valor {line}")
@@ -60,9 +61,11 @@ def writeToSerial(message):
         print('Event writeToSerial fired')
         try:
             ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-            ser.reset_output_buffer()
+            ser.reset_input_buffer()
             # ser.reset_input_buffer()
+
             ser.write(message.encode('utf-8'))
+            time.sleep(10)
             # ser.reset_input_buffer()
         except Exception as e:
             print(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
@@ -70,5 +73,6 @@ def writeToSerial(message):
             print(f"Se ha enviado a serial correctamente. Valor: {message}")   
 if __name__ == '__main__':
     # run the main function
+    writeToSerial("200")
     print(readFromSerial())
-    # writeToSerial("200")
+    
