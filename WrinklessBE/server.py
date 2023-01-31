@@ -6,6 +6,7 @@ import serial
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
 import logging
 import json
+import time
 from WrinklessBE.models.TempRules import TempRule
 class WebSocketServer:
     def __init__(self, host, port):
@@ -17,10 +18,12 @@ class WebSocketServer:
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-        ser.reset_input_buffer()
+        # ser.reset_input_buffer()
         while True:
+            self.logging.info(f"Valor del serial: {ser.in_waiting}")
             if ser.in_waiting > 0:
                 line = ser.readline().decode('utf-8').rstrip()
+                self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
                 return(line)
 
     def writeToSerial(self, message):
@@ -28,7 +31,8 @@ class WebSocketServer:
         try:
             ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
             ser.reset_input_buffer()
-            ser.write("Start") #hay que encode el mensaje
+            ser.write(message.encode('utf-8'))
+            ser.reset_input_buffer()
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
         finally:
@@ -58,11 +62,12 @@ class WebSocketServer:
     async def echo(self, websocket, path):
         async for message in websocket:
             if message == "100":
-                self.writeToSerial('Start')
+                self.writeToSerial('200')
+                time.sleep(10)
                 rgb = self.readFromSerial()
                 color = self.callAiModel(self, rgb)
                 temprule = self.getTimeTemp(color)
-                self.writeToSerial(str(temprule.rulesstring))
+                self.writeToSerial(str(temprule.num))
                 finish = self.readFromSerial()
                 self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                 await websocket.send(temprule)

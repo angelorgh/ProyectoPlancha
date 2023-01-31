@@ -1,30 +1,36 @@
-String nom = "Arduino";
-String msg;
+int num = 0;
 void setup() {
+  while (!Serial);
  	Serial.begin(9600);
+  pinMode(8, OUTPUT);
 }
 void loop() {
- 	readSerialPort();
- 	if (msg == "Start") {
- 			sendData("332,163,283,602,1533,1955,89");
- 	}
-	else
-	{
-		sendData(msg)
-	}
- 	delay(500);
+  readSerialPort();
+  if(num != 0){
+    digitalWrite(8, HIGH);
+    sendData(num);
+  }
 }
 void readSerialPort() {
- 	msg = "";
- 	if (Serial.available()) {
- 			delay(10);
- 			while (Serial.available() > 0) {
- 					msg += (char)Serial.read();
- 			}
- 			Serial.flush();
- 	}
+  num = 0;
+  while(!Serial.available());
+  num = Serial.parseInt();  
 }
-void sendData(msg) {
+
+void sendData(int val1) {
  	//write data
- 	Serial.print(msg);
+ 	Serial.print(val1);
+  Serial.print('\n');
+}
+
+void simulate(){
+  bool timer = false;
+  int num = 0;
+  while(timer = false){
+    sendData("temp " + random(50, 100));
+    num++;
+    if(num >= 14000){
+      timer = true;
+    }
+  }
 }

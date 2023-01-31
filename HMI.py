@@ -1,5 +1,6 @@
 # from cgitb import text
 from logging.handlers import RotatingFileHandler
+from random import randint
 import tkinter as tk
 from tkinter import ttk
 from tkinter import font as tkFont
@@ -14,19 +15,12 @@ import time
 server = WebSocketServer("localhost", 8000)
 server.start()
 
-
-def on_start_click():
-    global estatus
-    value2.config(text='Iniciando')
-    temprule = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
-    value2.config(text='Planchando')
-    progressbar.start(interval=temprule.time)
-    time.sleep(1)
-    
-
-
 root = tk.Tk()
 root.geometry("800x480")
+
+#test
+_job = None
+
 
 #constants
 
@@ -39,6 +33,36 @@ Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
 
 # Valor
 # estatus =  on_start_click()
+
+def on_start_click():
+    global estatus
+    value2.config(text='Iniciando')
+    time = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+    value2.config(text='Planchando')
+    progressbar.start(interval=time)
+    time.sleep(1)
+
+def cancel():
+    global _job
+    if _job is not None:
+        root.after_cancel(_job)
+        _job = None
+
+def goodbye_world():
+    print("Stopping Feed")
+    cancel()
+    button1.configure(command=hello_world)
+
+def hello_world():
+    print("Starting Feed")
+    button1.configure( command=goodbye_world)
+    print_sleep()
+
+def print_sleep():
+    global _job
+    #foo = randint(4000,7500)
+    print("Sleeping", randint(4000,7500))
+    _job = root.after(100,print_sleep)
 
 class CircularProgressbar(object):
     def __init__(self, canvas, x0, y0, x1, y1, width=2, start_ang=0, full_extent=360.):
@@ -100,7 +124,7 @@ root.rowconfigure(0, weight=2)
 root.columnconfigure(1, weight=3)
 root.config(cursor="none")
 root.configure(bg=bgcolor1)
-root.attributes("-fullscreen", True)
+root.attributes("-fullscreen", False)
 
 
 # Load the image files
@@ -120,7 +144,7 @@ label1.grid(row=0, column=0, sticky='N', columnspan=3)
 #  Botones izquierda
 button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=on_start_click)
 button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
-button2 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125, highlightthickness=0)
+button2 = tk.Button(root, text="Detener", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=goodbye_world)
 button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
 
 # CIRCULO PROGESO CENTRO
@@ -138,12 +162,18 @@ label2.place(x=-20,relx=1, rely=0.45,relheight=0.20, relwidth=0.20, anchor='e')
 value1 = tk.Label(root, text="147°C", font=poppins2, bg=bgcolor1, fg='white')
 value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
 
-
-
 label3 = tk.Label(root, text="Estatus", font=poppins2, bg=bgcolor1, fg=fgcolor1)
 label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
 value2 = tk.Label(root, text='En Espera',font=poppins2, bg=bgcolor1, fg='white')
 value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
+
+
+
+# def sendMessage():
+#     message = "0"
+#     asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+
+# root.after(50, readSerial)
 
 
 # Start the event loop
