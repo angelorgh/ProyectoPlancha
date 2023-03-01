@@ -9,30 +9,34 @@ import json
 import time
 from WrinklessBE.models.TempRules import TempRule
 class WebSocketServer:
-    def __init__(self, host, port):
+    def __init__(self, host, port, ser = None):
         self.host = host
         self.port = port
         self.logging = logging
         self.logging.basicConfig(filename='./WrinklessBE/data/log.txt', level=logging.DEBUG)
+        self.serial = ser
     
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
-        ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+        try:
+            line = self.ser.read_until().decode()
+            self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
+            return(line)
+        except Exception as e:
+            self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
         # ser.reset_input_buffer()
-        while True:
-            self.logging.info(f"Valor del serial: {ser.in_waiting}")
-            if ser.in_waiting > 0:
-                line = ser.readline().decode('utf-8').rstrip()
-                self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
-                return(line)
+        # while True:
+        #     self.logging.info(f"Valor del serial: {ser.in_waiting}")
+        #     if ser.in_waiting > 0:
+        #         line = ser.readline().decode('utf-8').rstrip()
+        #         self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
+        #         return(line)
 
     def writeToSerial(self, message):
         self.logging.debug('Event writeToSerial fired')
         try:
-            ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-            ser.reset_input_buffer()
-            ser.write(message.encode('utf-8'))
-            ser.reset_input_buffer()
+            self.ser.reset_input_buffer()
+            self.ser.write(message.encode('utf-8'))
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
         finally:
@@ -62,7 +66,7 @@ class WebSocketServer:
     async def echo(self, websocket, path):
         async for message in websocket:
             if message == "100":
-                self.writeToSerial('200')
+                self.writeToSerial('100')
                 time.sleep(10)
                 rgb = self.readFromSerial()
                 color = self.callAiModel(self, rgb)
@@ -71,10 +75,20 @@ class WebSocketServer:
                 finish = self.readFromSerial()
                 self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                 await websocket.send(temprule)
+    def start_serial(self):
+        try:
+            self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
+            time.sleep(1)
+        except:
+            self.ser = serial.Serial("/dev/ttyACM1", 115200, timeout=3000)
+            time.sleep(1)
+        finally:
+            self.logging.info('SERIAL PORT OPEN')
 
     def start(self):
         self.logging.debug('Starting WebSocket')
         try:
+            self.start_serial(self)
             start_server = websockets.serve(self.echo, self.host, self.port)
             asyncio.get_event_loop().run_until_complete(start_server)
         except Exception as e:
