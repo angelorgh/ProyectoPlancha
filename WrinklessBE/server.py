@@ -42,7 +42,7 @@ class WebSocketServer:
         finally:
             self.logging.info(f"Se ha enviado a serial correctamente. Valor: {message}")        
     
-    def callAiModel (self, rgb):
+    def callAiModel (self, rgb, *_ar):
         self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
