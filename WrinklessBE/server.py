@@ -68,7 +68,9 @@ class WebSocketServer:
             if message == "100":
                 self.writeToSerial('100')
                 time.sleep(1.5)
-                rgb = self.readFromSerial()
+                rgbstring = self.readFromSerial()
+                rgb = tuple(rgbstring.split(','))
+                self.logging.debug(f"VALOR DE RGB: {rgb}")
                 color = self.callAiModel(self, rgb)
                 temprule = self.getTimeTemp(color)
                 self.writeToSerial(str(temprule.num))
