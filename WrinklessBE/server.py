@@ -77,7 +77,7 @@ class WebSocketServer:
                 finish = self.readFromSerial()
                 self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                 await websocket.send(temprule)
-    def start_serial(self):
+    def start_serial(self, *_ar):
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
             time.sleep(1)
@@ -93,8 +93,8 @@ class WebSocketServer:
             self.start_serial(self)
             start_server = websockets.serve(self.echo, self.host, self.port)
             asyncio.get_event_loop().run_until_complete(start_server)
+            self.logging.info('WEBSOCKET SERVER STARTED')
         except Exception as e:
             self.logging.error(f"Error iniciando servidor de WebSockets. InnerException: {e}")
-        finally:
-            self.logging.info('WEBSOCKET SERVER STARTED')
+            
     
