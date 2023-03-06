@@ -19,6 +19,9 @@ void setup() {
 void loop() {
   readSerialPort();
   delay(1000);
+  if(num == 100){
+    Serial.println("332,163,283,602,1533,1955,89");
+  }
   if(num == 200){
     digitalWrite(8, HIGH);
     sendData(num);
@@ -46,7 +49,7 @@ void readSerialPort() {
 }
 
 void sendData(int val) {
-  Serial.println(val);
+  //Serial.println(val);
   sensors.requestTemperatures();  
   Serial.println(sensors.getTempCByIndex(0)); // Why "byIndex"? You can have more than one IC on the same bus. 0 refers to the first IC on the wire
   //Update value every 1 sec.
