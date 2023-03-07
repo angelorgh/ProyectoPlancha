@@ -37,20 +37,21 @@ class WebSocketServer:
         try:
             self.ser.reset_input_buffer()
             self.ser.write(message.encode('utf-8'))
+            self.logging.info(f"Se ha enviado a serial correctamente. Valor: {message}") 
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
-        finally:
-            self.logging.info(f"Se ha enviado a serial correctamente. Valor: {message}")        
     
-    def callAiModel (self, rgb, *_ar):
-        self.logging.debug('Event callAiModel fired')
+    def callAiModel (rgb, *_ar):
+        # self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
+            # self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
+            print(f"Se corrio modelo AI exitosamente. Valor:{name}")
             return name
         except Exception as e:
-            self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
-        finally:
-            self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
+            # self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
+            print(f"Error corriendo modelo de Color. InnerException: {e}")
+            
     
     def parseRGBColor (self,rgbstring):
         self.logging.debug('Event parseRGBColor fired')

@@ -49,33 +49,33 @@ class SpectColorClassifier:
         prediction = model.predict([model_input])[0]
         return SpectColorClassifier.colors[prediction]
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    from time import sleep
-    from random import randint
+#     from time import sleep
+#     from random import randint
 
-    file_path = "test.json"
+#     file_path = "test.json"
 
-    realclass = []
-    predictions = []
+#     realclass = []
+#     predictions = []
     
-    with open(file_path, "r") as json_file:
-            testset = json.load(json_file)["dataset"]
-            testlabels = sorted(set([obj["label"] for obj in testset]))
+#     with open(file_path, "r") as json_file:
+#             testset = json.load(json_file)["dataset"]
+#             testlabels = sorted(set([obj["label"] for obj in testset]))
             
          
-    for obj in testset:
+#     for obj in testset:
         
-            spect = list(map(lambda v: float(v), [obj["V"], obj["B"], obj["G"], obj["Y"], obj["O"], obj["R"], obj["temp"] ]))
-            predicted = SpectColorClassifier.classify(spect)
+#             spect = list(map(lambda v: float(v), [obj["V"], obj["B"], obj["G"], obj["Y"], obj["O"], obj["R"], obj["temp"] ]))
+#             predicted = SpectColorClassifier.classify(spect)
             
-            real = [label for idx, label in enumerate(testlabels) if label == obj["label"]]
+#             real = [label for idx, label in enumerate(testlabels) if label == obj["label"]]
          
-            predictions.append(predicted)
-            realclass.append(real)
-            #print(f"{real}\t-> this is {predicted}")
+#             predictions.append(predicted)
+#             realclass.append(real)
+#             #print(f"{real}\t-> this is {predicted}")
     
-    correctPredictions = sum([int(predictions[i] == ''.join(realclass[i])) for i in range(0,len(predictions))])
-    acc = (correctPredictions/len(realclass))*100
-    print(correctPredictions)
-    print(acc)
+#     correctPredictions = sum([int(predictions[i] == ''.join(realclass[i])) for i in range(0,len(predictions))])
+#     acc = (correctPredictions/len(realclass))*100
+#     print(correctPredictions)
+#     print(acc)
