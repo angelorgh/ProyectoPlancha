@@ -62,7 +62,7 @@ class WebSocketServer:
         return rgb
     
     def getTimeTemp(self, color):
-        self.logging.debug('Event getTimeTemp fired')
+        self.logging.debug(f"Event getTimeTemp fired. COLOR: {color}")
         f = open(f"{this_dir}/data/temprules.json")
         rules = json.load(f)
         return TempRule(rules[color])
