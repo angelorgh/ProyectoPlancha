@@ -44,16 +44,16 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
     
-    def callAiModel (rgb, *_ar):
-        # self.logging.debug('Event callAiModel fired')
+    def callAiModel (self, rgb, *_ar):
+        self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
-            # self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
-            print(f"Se corrio modelo AI exitosamente. Valor:{name}")
+            self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
+            # print(f"Se corrio modelo AI exitosamente. Valor:{name}")
             return name
         except Exception as e:
-            # self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
-            print(f"Error corriendo modelo de Color. InnerException: {e}")
+            self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
+            # print(f"Error corriendo modelo de Color. InnerException: {e}")
             
     
     def parseRGBColor (self,rgbstring):
