@@ -43,7 +43,7 @@ class BackEnd:
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
     
-    def callAiModel (self, rgb, *_ar):
+    def callAiModel (self, rgb):
         self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
@@ -73,7 +73,8 @@ class BackEnd:
             rgbstring = self.readFromSerial()
             rgb = tuple(rgbstring.split(','))
             self.logging.debug(f"VALOR DE RGB: {rgb}")
-            color = self.callAiModel(self, rgb)
+            color = SpectColorClassifier.classify(rgb) #self.callAiModel(self, rgb)
+            self.logging.debug("Color")
             temprule = self.getTimeTemp(color)
             self.writeToSerial(str(temprule.num))
             finish = self.readFromSerial()
