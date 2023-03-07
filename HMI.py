@@ -8,15 +8,17 @@ from turtle import color
 # Import the Image and ImageTk modules to load and display the image
 from PIL import Image, ImageTk
 from WrinklessBE.server import WebSocketServer
+from WrinklessBE.test import BackEnd
 import asyncio
 import WrinklessBE.client as client
 import time
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
 
 
-server = WebSocketServer("localhost", 8000)
+# server = WebSocketServer("localhost", 8000)
+# server.start()
+server = BackEnd()
 server.start()
-
 root = tk.Tk()
 root.geometry("800x480")
 
@@ -44,7 +46,8 @@ def on_start_click():
 
     # print(f"{name} - tiempo {time.time()- start}")
     value2.config(text='Iniciando')
-    time = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+    timer = server.echo(100)
+    # time = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
     value2.config(text='Planchando')
     progressbar.start(interval=time)
     time.sleep(1)
