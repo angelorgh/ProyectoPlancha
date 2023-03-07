@@ -2,6 +2,10 @@ import json
 from joblib import dump, load
 from os import path
 from sklearn.neural_network import MLPClassifier
+import sys
+import os
+this_dir = os.path.dirname(__file__) # Path to loader.py
+# sys.path.append(os.path.join(this_dir, '../HMI.py'))
 
 class SpectColorClassifier:
 
@@ -31,18 +35,19 @@ class SpectColorClassifier:
     def classify(spect:list) -> tuple:
 
         model_input = list(map(lambda v: float(v), spect))
-        
-        if path.exists("./model.joblib"):
-            model = load("model.joblib")
+        # model = load(f"{this_dir}/model.joblib")
+        if path.exists(f"{this_dir}/model.joblib"):
+            model = load(f"{this_dir}/model.joblib")
         else:
             print("entrenando red neuronal...")
+            print(path.realpath(__file__))
             model = MLPClassifier(
                 hidden_layer_sizes=(3,12), 
                 activation="relu", 
                 solver="lbfgs", 
                 max_iter=5000
             )
-            trainset = SpectColorClassifier.load_data_from_json("train.json")
+            trainset = SpectColorClassifier.load_data_from_json("./train.json")
             model.fit(trainset["inputs"], trainset["outputs"])
             dump(model, "model.joblib")
         

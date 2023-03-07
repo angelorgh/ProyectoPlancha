@@ -1,0 +1,240 @@
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058
+DEBUG:root:Starting WebSocket
+INFO:root:SERIAL PORT OPEN
+ERROR:root:Error iniciando servidor de WebSockets. InnerException: module 'serial' has no attribute 'Serial'
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 70 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 91 14288
+DEBUG:PIL.PngImagePlugin:STREAM b'IHDR' 16 13
+DEBUG:PIL.PngImagePlugin:STREAM b'sRGB' 41 1
+DEBUG:PIL.PngImagePlugin:STREAM b'gAMA' 54 4
+DEBUG:PIL.PngImagePlugin:STREAM b'PLTE' 70 678
+DEBUG:PIL.PngImagePlugin:STREAM b'tRNS' 760 226
+DEBUG:PIL.PngImagePlugin:STREAM b'pHYs' 998 9
+DEBUG:PIL.PngImagePlugin:STREAM b'IDAT' 1019 7058

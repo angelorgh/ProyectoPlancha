@@ -64,7 +64,7 @@ class WebSocketServer:
         rules = json.load(f)
         return TempRule(rules[color])
 
-    async def echo(self, websocket, path):
+    async def echo(self, websocket):
         async for message in websocket:
             if message == "100":
                 self.writeToSerial('100')
