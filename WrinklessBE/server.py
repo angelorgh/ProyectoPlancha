@@ -17,8 +17,8 @@ class WebSocketServer:
         self.logging = logging
         self.logging.basicConfig(filename='./WrinklessBE/data/log.txt', level=logging.DEBUG)
         self.serial = ser
-    # def __iter__(self):
-    #     return self
+    def __iter__(self):
+        return self
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         try:
