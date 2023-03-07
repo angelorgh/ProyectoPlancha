@@ -17,8 +17,8 @@ class WebSocketServer:
         self.logging = logging
         self.logging.basicConfig(filename='./WrinklessBE/data/log.txt', level=logging.DEBUG)
         self.serial = ser
-    def __iter__(self):
-        return self
+    # def __iter__(self):
+    #     return self
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         try:
@@ -63,7 +63,7 @@ class WebSocketServer:
     
     def getTimeTemp(self, color):
         self.logging.debug('Event getTimeTemp fired')
-        f = open(f"{this_dir}/data/temprules.json'")
+        f = open(f"{this_dir}/data/temprules.json")
         rules = json.load(f)
         return TempRule(rules[color])
 
