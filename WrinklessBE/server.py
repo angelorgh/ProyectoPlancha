@@ -8,6 +8,8 @@ import logging
 import json
 import time
 from WrinklessBE.models.TempRules import TempRule
+import os
+this_dir = os.path.dirname(__file__) # Path to loader.py
 class WebSocketServer:
     def __init__(self, host, port, ser = None):
         self.host = host
@@ -60,7 +62,7 @@ class WebSocketServer:
     
     def getTimeTemp(self, color):
         self.logging.debug('Event getTimeTemp fired')
-        f = open('./data/temprules.json')
+        f = open(f"{this_dir}/data/temprules.json'")
         rules = json.load(f)
         return TempRule(rules[color])
 

@@ -2,7 +2,6 @@ import json
 from joblib import dump, load
 from os import path
 from sklearn.neural_network import MLPClassifier
-import sys
 import os
 this_dir = os.path.dirname(__file__) # Path to loader.py
 # sys.path.append(os.path.join(this_dir, '../HMI.py'))
