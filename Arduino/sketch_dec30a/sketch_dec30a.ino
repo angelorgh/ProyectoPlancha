@@ -11,10 +11,11 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
 void setup() {
-   Serial.begin(115200);
+  Serial.begin(115200);
   while (!Serial);
   pinMode(8, OUTPUT);
   sensors.begin();
+  Serial.println("Hola");
 }
 void loop() {
   readSerialPort();

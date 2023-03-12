@@ -8,6 +8,7 @@ import logging
 import json
 import time
 from WrinklessBE.models.TempRules import TempRule
+from datetime import date
 import os
 this_dir = os.path.dirname(__file__) # Path to loader.py
 class WebSocketServer:
@@ -15,10 +16,10 @@ class WebSocketServer:
         self.host = host
         self.port = port
         self.logging = logging
-        self.logging.basicConfig(filename='./WrinklessBE/data/log.txt', level=logging.DEBUG)
+        self.date = date.today()
+        self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
-    # def __iter__(self):
-    #     return self
+    
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         try:
@@ -60,17 +61,20 @@ class WebSocketServer:
     async def echo(self, websocket):
         async for message in websocket:
             if message == "100":
-                self.writeToSerial('100')
-                time.sleep(1.5)
-                rgbstring = self.readFromSerial()
-                rgb = tuple(rgbstring.split(','))
-                self.logging.debug(f"VALOR DE RGB: {rgb}")
-                color = self.callAiModel(self, rgb)
-                temprule = self.getTimeTemp(color)
-                self.writeToSerial(str(temprule.num))
-                finish = self.readFromSerial()
-                self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
-                await websocket.send(temprule)
+                ready = self.readFromSerial()
+                self.logging.info(f"VALOR DE EMPEZAR: {ready}")
+                if ready == "Hola":
+                    self.writeToSerial('100')
+                    time.sleep(1.5)
+                    rgbstring = self.readFromSerial()
+                    rgb = tuple(rgbstring.split(','))
+                    self.logging.debug(f"VALOR DE RGB: {rgb}")
+                    color = self.callAiModel(self, rgb)
+                    temprule = self.getTimeTemp(color)
+                    self.writeToSerial(str(temprule.num))
+                    finish = self.readFromSerial()
+                    self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
+                    await websocket.send(temprule)
     def start_serial(self, *_ar):
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
