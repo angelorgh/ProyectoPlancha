@@ -17,8 +17,8 @@ class WebSocketServer:
         self.logging = logging
         self.logging.basicConfig(filename='./WrinklessBE/data/log.txt', level=logging.DEBUG)
         self.serial = ser
-    def __iter__(self):
-        return self
+    # def __iter__(self):
+    #     return self
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         try:
@@ -27,13 +27,6 @@ class WebSocketServer:
             return(line)
         except Exception as e:
             self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
-        # ser.reset_input_buffer()
-        # while True:
-        #     self.logging.info(f"Valor del serial: {ser.in_waiting}")
-        #     if ser.in_waiting > 0:
-        #         line = ser.readline().decode('utf-8').rstrip()
-        #         self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
-        #         return(line)
 
     def writeToSerial(self, message):
         self.logging.debug('Event writeToSerial fired')
@@ -44,17 +37,14 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
     
-    def callAiModel (self, rgb, *_ar):
+    def callAiModel (self, rgb):
         self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
             self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
-            # print(f"Se corrio modelo AI exitosamente. Valor:{name}")
             return name
         except Exception as e:
             self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
-            # print(f"Error corriendo modelo de Color. InnerException: {e}")
-            
     
     def parseRGBColor (self,rgbstring):
         self.logging.debug('Event parseRGBColor fired')

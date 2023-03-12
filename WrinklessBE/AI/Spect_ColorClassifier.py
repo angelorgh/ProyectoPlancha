@@ -46,7 +46,7 @@ class SpectColorClassifier:
                 solver="lbfgs", 
                 max_iter=5000
             )
-            trainset = SpectColorClassifier.load_data_from_json("./train.json")
+            trainset = SpectColorClassifier.load_data_from_json(f"{this_dir}/train.json")
             model.fit(trainset["inputs"], trainset["outputs"])
             dump(model, "model.joblib")
         

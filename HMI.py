@@ -15,10 +15,10 @@ import time
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
 
 
-# server = WebSocketServer("localhost", 8000)
-# server.start()
-server = BackEnd()
+server = WebSocketServer("localhost", 8000)
 server.start()
+# server = BackEnd()
+# server.start()
 root = tk.Tk()
 root.geometry("800x480")
 
@@ -40,14 +40,11 @@ Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
 
 def on_start_click():
     global estatus
-    # testrgb = (332,163,283,602,1533,1955,89)
-    # start = time.time()
-    # name = SpectColorClassifier.classify(testrgb)
 
-    # print(f"{name} - tiempo {time.time()- start}")
     value2.config(text='Iniciando')
-    timer = server.echo("100")
-    # time = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+
+    timer = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+    
     value2.config(text='Planchando')
     progressbar.start(interval=timer)
     time.sleep(1)
