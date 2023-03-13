@@ -36,7 +36,7 @@ class WebSocketServer:
             self.logging.info(f"Se detecto los colores correctamente. VALOR: {results}")
         except Exception as e:
             self.logging.error(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
-        return results
+        return tuple(results)
     def useTemperatureSensor (self):
         self.logging.debug('Event useTemperatureSensor fired')
         try:
@@ -97,9 +97,7 @@ class WebSocketServer:
                 ifcon = str("Hola")
                 if parseready.strip() == ifcon:
                     self.logging.debug("ENTRO AL IF")
-                    # rgbstring = self.readFromSerial()
-                    rgbstring = self.useSpectrometrySensor(self)
-                    rgb = tuple(rgbstring)
+                    rgb = self.useSpectrometrySensor(self)
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(self, rgb)
                     temprule = self.getTimeTemp(color)
