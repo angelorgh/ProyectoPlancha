@@ -21,7 +21,7 @@ void loop() {
   readSerialPort();
   delay(1000);
   if(num == 100){
-    Serial.println("Empece");
+    Serial.println("Hola");
   }
   if(num == 1){
     digitalWrite(8, HIGH);
