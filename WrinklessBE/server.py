@@ -107,7 +107,7 @@ class WebSocketServer:
                     finish = self.readFromSerial()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(temprule)
-            self.logging.debug("NO ENTRO AL IF")
+            self.logging.debug(f"NO ENTRO AL IF. Valor paseArduino: {parseready} Valor parseado:{ifcon}")
             if message == "200":
                 temp = self.useTemperatureSensor(self)
                 response = self.readFromSerial()
