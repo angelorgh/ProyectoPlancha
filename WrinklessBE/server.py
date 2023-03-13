@@ -92,6 +92,7 @@ class WebSocketServer:
                 self.writeToSerial('100')
                 ready = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
+                parseready = str(ready)
                 if ready == "Empece":
                     self.logging.debug("ENTRO AL IF")
                     # rgbstring = self.readFromSerial()
@@ -104,6 +105,7 @@ class WebSocketServer:
                     finish = self.readFromSerial()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(temprule)
+            self.logging.debug("NO ENTRO AL IF")
             if message == "200":
                 temp = self.useTemperatureSensor(self)
                 response = self.readFromSerial()
