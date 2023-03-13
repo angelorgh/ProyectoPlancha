@@ -14,7 +14,7 @@ def useSpectrometrySensor ():
         spec.enable_main_led()
         try:
             results = spec.get_calibrated_values()
-            results = results.append(89)
+            results.append(89)
             print(type(results))
             results = tuple(results)
             print(f"Se detecto los colores correctamente. VALOR: {results}")
