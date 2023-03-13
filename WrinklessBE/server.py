@@ -93,7 +93,7 @@ class WebSocketServer:
                 ready = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
                 parseready = str(ready)
-                if ready == "Empece":
+                if parseready == "Empece":
                     self.logging.debug("ENTRO AL IF")
                     # rgbstring = self.readFromSerial()
                     rgbstring = self.useSpectrometrySensor(self)
