@@ -69,7 +69,7 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
     
-    def callAiModel (self, rgb, *args):
+    def callAiModel (self, rgb):
         self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
