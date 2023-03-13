@@ -1,5 +1,5 @@
 from Spect_ColorClassifier import SpectColorClassifier
-import sensors.AS7262_Pi as spec
+import AS7262_Pi as spec
 import time
 # testrgb = (332,163,283,602,1533,1955,89)
 
