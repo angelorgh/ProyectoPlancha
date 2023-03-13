@@ -14,6 +14,7 @@ def useSpectrometrySensor ():
         spec.enable_main_led()
         try:
             results = spec.get_calibrated_values()
+            print(type(results))
             print(f"Se detecto los colores correctamente. VALOR: {tuple(results.append(89))}")
         except Exception as e:
             print(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
