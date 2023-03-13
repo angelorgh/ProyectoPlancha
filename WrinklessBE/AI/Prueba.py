@@ -1,5 +1,5 @@
 from Spect_ColorClassifier import SpectColorClassifier
-import WrinklessBE.sensors.AS7262_Pi as spec
+import sensors.AS7262_Pi as spec
 import time
 # testrgb = (332,163,283,602,1533,1955,89)
 
