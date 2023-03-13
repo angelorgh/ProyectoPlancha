@@ -95,4 +95,4 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error iniciando servidor de WebSockets. InnerException: {e}")
             
-    
+
