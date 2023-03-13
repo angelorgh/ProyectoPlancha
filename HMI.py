@@ -8,7 +8,6 @@ from turtle import color
 # Import the Image and ImageTk modules to load and display the image
 from PIL import Image, ImageTk
 from WrinklessBE.server import WebSocketServer
-from WrinklessBE.test import BackEnd
 import asyncio
 import WrinklessBE.client as client
 import time
