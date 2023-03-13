@@ -15,15 +15,15 @@ void setup() {
   while (!Serial);
   pinMode(8, OUTPUT);
   sensors.begin();
-  Serial.println("Hola");
+  // Serial.println("Hola");
 }
 void loop() {
   readSerialPort();
   delay(1000);
   if(num == 100){
-    Serial.println("332,163,283,602,1533,1955,89");
+    Serial.println("Empece");
   }
-  if(num == 200){
+  if(num == 1){
     digitalWrite(8, HIGH);
     sendData(num);
     // while(num !=300){
@@ -34,7 +34,11 @@ void loop() {
     //   digitalWrite(8, HIGH);
     //   sendData(num);
     // }
-    
+    delay(1000);
+    digitalWrite(8, LOW);
+    delay(500);
+    digitalWrite(8, HIGH);
+    Serial.println("Termine");
   }
   if(num == 300){
     digitalWrite(8, LOW);

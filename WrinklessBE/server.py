@@ -8,8 +8,12 @@ import logging
 import json
 import time
 from WrinklessBE.models.TempRules import TempRule
+from WrinklessBE.models.TempSensor import TempSensorResponse
 from datetime import date
 import os
+import board
+import adafruit_mlx90614
+import WrinklessBE.sensors.AS7262_Pi as spec
 this_dir = os.path.dirname(__file__) # Path to loader.py
 class WebSocketServer:
     def __init__(self, host, port, ser = None):
@@ -20,6 +24,30 @@ class WebSocketServer:
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
     
+    def useSpectrometrySensor (self):
+        self.logging.debug('Event useSpectrometrySensor fired')
+        spec.soft_reset()
+        spec.set_gain(3)
+        spec.set_integration_time(50)
+        spec.set_measurement_mode(2)
+        spec.enable_main_led()
+        try:
+            results = spec.get_calibrated_values()
+            self.logging.info(f"Se detecto los colores correctamente. VALOR: {results}")
+        except Exception as e:
+            self.logging.error(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
+        return results
+    def useTemperatureSensor (self):
+        self.logging.debug('Event useTemperatureSensor fired')
+        try:
+            i2c = board.I2C()  # uses board.SCL and board.SDA
+            mlx = adafruit_mlx90614.MLX90614(i2c)
+            temp = mlx.object_temperature
+            self.logging.info("TEMPERATURA CAPTADA: {temp}")
+            return temp
+        except Exception as e:
+            self.logging.error(f"Error leyendo sensor de temperatura")
+            return 0
     def readFromSerial(self):
         self.logging.debug('Event readFromSerial fired')
         try:
@@ -61,13 +89,14 @@ class WebSocketServer:
     async def echo(self, websocket):
         async for message in websocket:
             if message == "100":
+                self.writeToSerial('100')
                 ready = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
-                if ready == "Hola":
-                    self.writeToSerial('100')
+                if ready == "Empece":
                     time.sleep(1.5)
-                    rgbstring = self.readFromSerial()
-                    rgb = tuple(rgbstring.split(','))
+                    # rgbstring = self.readFromSerial()
+                    rgbstring = self.useSpectrometrySensor(self)
+                    rgb = tuple(rgbstring)
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(self, rgb)
                     temprule = self.getTimeTemp(color)
@@ -75,6 +104,11 @@ class WebSocketServer:
                     finish = self.readFromSerial()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(temprule)
+            if message == "200":
+                temp = self.useTemperatureSensor(self)
+                response = self.readFromSerial()
+                result = TempSensorResponse(temp, response)
+                await websocket.send(result)
     def start_serial(self, *_ar):
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection

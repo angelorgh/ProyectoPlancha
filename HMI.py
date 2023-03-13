@@ -48,6 +48,12 @@ def on_start_click():
     value2.config(text='Planchando')
     progressbar.start(interval=timer)
     time.sleep(1)
+    result = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+    while(result.response != "Termine"):
+        result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+        parsetemp = float("{:.2f}".format(result.temp))
+        value1.config(text=f"{parsetemp}°C")
+    value1.config(text="")
 
 def cancel():
     global _job
@@ -166,7 +172,7 @@ canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
 #  Texto derecha
 label2 = tk.Label(root, text="Temp", font=poppins2, bg=bgcolor1, fg=fgcolor1)
 label2.place(x=-20,relx=1, rely=0.45,relheight=0.20, relwidth=0.20, anchor='e')
-value1 = tk.Label(root, text="147°C", font=poppins2, bg=bgcolor1, fg='white')
+value1 = tk.Label(root, text="", font=poppins2, bg=bgcolor1, fg='white')
 value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
 
 label3 = tk.Label(root, text="Estatus", font=poppins2, bg=bgcolor1, fg=fgcolor1)
