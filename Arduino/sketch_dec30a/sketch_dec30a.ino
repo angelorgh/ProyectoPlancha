@@ -21,6 +21,7 @@ void loop() {
   readSerialPort();
   delay(1000);
   if(num == 100){
+    Serial.flush();
     Serial.println("Hola");
   }
   if(num == 1){

@@ -90,6 +90,7 @@ class WebSocketServer:
         async for message in websocket:
             if message == "100":
                 self.writeToSerial('100')
+                self.ser.reset_output_buffer()
                 ready = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
                 parseready = str(ready)
