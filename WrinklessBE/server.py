@@ -95,7 +95,7 @@ class WebSocketServer:
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
                 parseready = str(ready)
                 ifcon = str("Hola")
-                if parseready == ifcon:
+                if parseready.strip() == ifcon:
                     self.logging.debug("ENTRO AL IF")
                     # rgbstring = self.readFromSerial()
                     rgbstring = self.useSpectrometrySensor(self)
@@ -107,7 +107,7 @@ class WebSocketServer:
                     finish = self.readFromSerial()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(temprule)
-            self.logging.debug(f"NO ENTRO AL IF. Valor paseArduino: {parseready} Valor parseado:{ifcon}")
+            self.logging.debug(f"NO ENTRO AL IF. Valor paseArduino: {parseready} Valor parseado: {ifcon}")
             if message == "200":
                 temp = self.useTemperatureSensor(self)
                 response = self.readFromSerial()
