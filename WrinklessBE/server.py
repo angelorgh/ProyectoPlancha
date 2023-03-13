@@ -24,7 +24,7 @@ class WebSocketServer:
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
     
-    def useSpectrometrySensor (self):
+    def useSpectrometrySensor (self, *arg):
         self.logging.debug('Event useSpectrometrySensor fired')
         spec.soft_reset()
         spec.set_gain(3)
