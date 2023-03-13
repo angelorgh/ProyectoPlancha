@@ -23,7 +23,6 @@ class WebSocketServer:
         self.date = date.today()
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
-    
     def useSpectrometrySensor (self, *arg):
         self.logging.debug('Event useSpectrometrySensor fired')
         spec.soft_reset()
@@ -33,10 +32,13 @@ class WebSocketServer:
         spec.enable_main_led()
         try:
             results = spec.get_calibrated_values()
-            self.logging.info(f"Se detecto los colores correctamente. VALOR: {results}")
+            results.append(89)
+            results = tuple(results)
+            self.logging.debug(f"Se detecto los colores correctamente. VALOR: {results}")
         except Exception as e:
-            self.logging.error(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
-        return tuple(results)
+            self.logging.debug(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
+        return results
+    
     def useTemperatureSensor (self):
         self.logging.debug('Event useTemperatureSensor fired')
         try:
