@@ -66,7 +66,7 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
     
-    def callAiModel (self, rgb):
+    def callAiModel (self, rgb, *args):
         self.logging.debug('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
@@ -104,7 +104,7 @@ class WebSocketServer:
                     color = self.callAiModel(self, rgb)
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
-                    finish = self.readFromSerial()
+                    finish = self.readFromSerial().strip()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(temprule)
             self.logging.debug(f"NO ENTRO AL IF. Valor paseArduino: {parseready} Valor parseado: {ifcon}")
