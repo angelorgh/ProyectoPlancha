@@ -14,6 +14,7 @@ def useSpectrometrySensor ():
         spec.enable_main_led()
         try:
             results = spec.get_calibrated_values()
+            results = (results[5], results[4], results[3], results[2], results[1], results[0])
             results.append(89)
             print(type(results))
             results = tuple(results)
