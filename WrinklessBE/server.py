@@ -28,10 +28,11 @@ class WebSocketServer:
         spec.soft_reset()
         spec.set_gain(3)
         spec.set_integration_time(50)
-        spec.set_measurement_mode(2)
+        spec.set_measurement_mode(3)
         spec.enable_main_led()
         try:
             results = spec.get_calibrated_values()
+            spec.disable_indicator_led()
             results = [results[5], results[4], results[3], results[2], results[1], results[0]]
             results.append(89)
             results = tuple(results)
@@ -102,7 +103,7 @@ class WebSocketServer:
                     self.logging.debug("ENTRO AL IF")
                     rgb = self.useSpectrometrySensor(self)
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
-                    color = self.callAiModel(self, rgb)
+                    color = self.callAiModel(rgb)
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
                     finish = self.readFromSerial().strip()
