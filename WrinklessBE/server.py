@@ -112,7 +112,7 @@ class WebSocketServer:
             if message == "200":
                 temp = self.useTemperatureSensor()
                 response = self.readFromSerial().strip()
-                result = temp + "%"+ response#TempSensorResponse(temp, response)
+                result = str(round(temp,2)) + "%"+ response#TempSensorResponse(temp, response)
                 await websocket.send(result)
     def start_serial(self):
         try:
