@@ -31,7 +31,7 @@ bgcolor1 = '#1E1D1D'
 fgcolor1 = '#FF5757'
 
 poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
-poppins2 = tkFont.Font(family='Poppins', size=25, weight=tkFont.BOLD)
+poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
 Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
 
 # Valor
