@@ -47,7 +47,7 @@ class WebSocketServer:
             i2c = board.I2C()  # uses board.SCL and board.SDA
             mlx = adafruit_mlx90614.MLX90614(i2c)
             temp = mlx.object_temperature
-            self.logging.info("TEMPERATURA CAPTADA: {temp}")
+            self.logging.info(f"TEMPERATURA CAPTADA: {temp}")
             return temp
         except Exception as e:
             self.logging.error(f"Error leyendo sensor de temperatura")
@@ -111,8 +111,8 @@ class WebSocketServer:
                     await websocket.send(str(temprule.time))
             if message == "200":
                 temp = self.useTemperatureSensor()
-                response = self.readFromSerial()
-                result = TempSensorResponse(temp, response)
+                response = self.readFromSerial().strip()
+                result = temp + "%"+ response#TempSensorResponse(temp, response)
                 await websocket.send(result)
     def start_serial(self):
         try:
