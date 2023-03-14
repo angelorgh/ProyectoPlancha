@@ -45,7 +45,7 @@ def on_start_click():
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
     timer = int(timer)
     print(timer)
-    value2.config(text='Planchando')
+    value2.config(text='Operando')
     progressbar.start(interval=timer)
     time.sleep(1)
     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
