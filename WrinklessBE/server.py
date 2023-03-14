@@ -109,13 +109,12 @@ class WebSocketServer:
                     finish = self.readFromSerial().strip()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(str(temprule.time))
-            self.logging.debug(f"NO ENTRO AL IF. Valor paseArduino: {parseready} Valor parseado: {ifcon}")
             if message == "200":
                 temp = self.useTemperatureSensor()
                 response = self.readFromSerial()
                 result = TempSensorResponse(temp, response)
                 await websocket.send(result)
-    def start_serial(self, *_ar):
+    def start_serial(self):
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
             time.sleep(1)
@@ -128,7 +127,7 @@ class WebSocketServer:
     def start(self):
         self.logging.debug('Starting WebSocket')
         try:
-            self.start_serial(self)
+            self.start_serial()
             start_server = websockets.serve(self.echo, self.host, self.port)
             asyncio.get_event_loop().run_until_complete(start_server)
             self.logging.info('WEBSOCKET SERVER STARTED')
