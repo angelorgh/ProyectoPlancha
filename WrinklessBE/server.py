@@ -23,7 +23,7 @@ class WebSocketServer:
         self.date = date.today()
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
-    def useSpectrometrySensor (self, *arg):
+    def useSpectrometrySensor (self):
         self.logging.debug('Event useSpectrometrySensor fired')
         spec.soft_reset()
         spec.set_gain(3)
@@ -101,17 +101,17 @@ class WebSocketServer:
                 ifcon = str("Hola")
                 if parseready.strip() == ifcon:
                     self.logging.debug("ENTRO AL IF")
-                    rgb = self.useSpectrometrySensor(self)
+                    rgb = self.useSpectrometrySensor()
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(rgb)
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
                     finish = self.readFromSerial().strip()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
-                    await websocket.send(temprule)
+                    await websocket.send(temprule.time)
             self.logging.debug(f"NO ENTRO AL IF. Valor paseArduino: {parseready} Valor parseado: {ifcon}")
             if message == "200":
-                temp = self.useTemperatureSensor(self)
+                temp = self.useTemperatureSensor()
                 response = self.readFromSerial()
                 result = TempSensorResponse(temp, response)
                 await websocket.send(result)

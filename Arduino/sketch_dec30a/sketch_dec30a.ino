@@ -24,7 +24,7 @@ void loop() {
     Serial.flush();
     Serial.println("Hola");
   }
-  if(num == 1){
+  if(num == 1 || num==2 || num == 3){
     digitalWrite(8, HIGH);
     sendData(num);
     // while(num !=300){
