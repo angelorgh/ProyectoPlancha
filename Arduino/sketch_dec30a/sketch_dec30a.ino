@@ -37,7 +37,7 @@ void loop() {
     // }
     delay(1000);
     digitalWrite(8, LOW);
-    delay(500);
+    delay(2000);
     digitalWrite(8, HIGH);
     Serial.println("Termine");
   }
