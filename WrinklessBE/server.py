@@ -95,11 +95,9 @@ class WebSocketServer:
             if message == "100":
                 self.writeToSerial('100')
                 self.ser.reset_output_buffer()
-                ready = self.readFromSerial()
+                ready = self.readFromSerial() #Validar que se quede esperando o poner un time sleep
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
-                parseready = str(ready)
-                ifcon = str("Hola")
-                if parseready.strip() == ifcon:
+                if ready.strip() == "Hola":
                     self.logging.debug("ENTRO AL IF")
                     rgb = self.useSpectrometrySensor()
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
@@ -114,6 +112,7 @@ class WebSocketServer:
                 response = self.readFromSerial().strip()
                 result = str(round(temp,2)) + "%"+ response#TempSensorResponse(temp, response)
                 await websocket.send(result)
+            #Poner logica de cancel
     def start_serial(self):
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
