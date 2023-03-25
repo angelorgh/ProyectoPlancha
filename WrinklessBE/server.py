@@ -56,6 +56,10 @@ class WebSocketServer:
     def readFromSerial(self, expected = ''):
         self.logging.debug('Event readFromSerial fired')
         try:
+            if(expected != ''):
+                line = self.ser.read_until(expected).decode()
+                self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
+                return(line)
             line = self.ser.read_until(expected).decode()
             self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
             return(line)
@@ -103,8 +107,8 @@ class WebSocketServer:
                 
                 self.writeToSerial('1')
                 self.ser.reset_output_buffer()
-                time.sleep(5)
-                secondstep = self.readFromSerial('Waitingfabric')
+                time.sleep(12)
+                secondstep = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {secondstep}")
                 if secondstep.strip() == "Waitingfabric":
                     rgb = self.useSpectrometrySensor()
