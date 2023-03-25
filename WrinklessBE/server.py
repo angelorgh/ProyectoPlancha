@@ -60,7 +60,7 @@ class WebSocketServer:
                 line = self.ser.read_until(expected).decode()
                 self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
                 return(line)
-            line = self.ser.read_until(expected).decode()
+            line = self.ser.read_until().decode()
             self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
             return(line)
         except Exception as e:
