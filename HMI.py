@@ -12,10 +12,13 @@ import asyncio
 import WrinklessBE.client as client
 import time
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
+from WrinklessBE.calibration import Calibration
 
 
 server = WebSocketServer("localhost", 8000)
 server.start()
+
+
 # server = BackEnd()
 # server.start()
 root = tk.Tk()
@@ -195,3 +198,6 @@ value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
 
 # Start the event loop
 root.mainloop()
+getcalibration = Calibration.calibrate()
+if(getcalibration.find('ERROR') != -1):
+    tk.messagebox.showerror(getcalibration)

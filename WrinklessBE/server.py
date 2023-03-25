@@ -30,6 +30,7 @@ class WebSocketServer:
         spec.set_integration_time(50)
         spec.set_measurement_mode(3)
         spec.enable_main_led()
+        results = []
         try:
             results = spec.get_calibrated_values()
             spec.disable_indicator_led()
@@ -38,7 +39,7 @@ class WebSocketServer:
             results = tuple(results)
             self.logging.debug(f"Se detecto los colores correctamente. VALOR: {results}")
         except Exception as e:
-            self.logging.debug(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
+            self.logging.error(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
         return results
     
     def useTemperatureSensor (self):
