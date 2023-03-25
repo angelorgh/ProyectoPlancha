@@ -69,7 +69,7 @@ class WebSocketServer:
             self.ser.write(message.encode('utf-8'))
             self.logging.info(f"Se ha enviado a serial correctamente. Valor: {message}") 
         except Exception as e:
-            self.logging.error(f"Error enviando informacion a serial. Valor enviado{message}. InnerException: {e}")
+            self.logging.error(f"Error enviando informacion a serial. Valor enviado {message}. InnerException: {e}")
     
     def callAiModel (self, rgb):
         self.logging.debug('Event callAiModel fired')
@@ -94,13 +94,18 @@ class WebSocketServer:
     async def echo(self, websocket):
         async for message in websocket:
             if message == "100":
+                
+                #self.ser.reset_output_buffer()
+                # ready = self.readFromSerial('Waitingstart') #Validar que se quede esperando o poner un time sleep
+                # if(ready.strip() == 'Waitingstart'):
+                #     # time.sleep(10)
+                #     secondstep = self.readFromSerial('Waitingfabric')
+                
                 self.writeToSerial('1')
                 self.ser.reset_output_buffer()
-                ready = self.readFromSerial('Waitingstart') #Validar que se quede esperando o poner un time sleep
-                if(ready.strip() == 'Waitingstart'):
-                    # time.sleep(10)
-                    secondstep = self.readFromSerial('Waitingfabric')
-                self.logging.info(f"VALOR DE EMPEZAR: {ready}")
+                time.sleep(5)
+                secondstep = self.readFromSerial('Waitingfabric')
+                self.logging.info(f"VALOR DE EMPEZAR: {secondstep}")
                 if secondstep.strip() == "Waitingfabric":
                     rgb = self.useSpectrometrySensor()
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
