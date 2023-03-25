@@ -201,4 +201,6 @@ root.mainloop()
 getcalibration = Calibration()
 calibrated = getcalibration.calibrate()
 if(calibrated.find('ERROR') != -1):
-    tk.messagebox.showerror(calibrated)
+    tk.messagebox.showerror(title= 'ERROR!', message = calibrated)
+else:
+    tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
