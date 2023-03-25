@@ -11,12 +11,13 @@ class Calibration:
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_calibration_log.txt", level=logging.DEBUG)
     
     def calibrate_tempsensor (self):
+        self.logging.debug("Event calibrate_tempsensor started")
         i2c = board.I2C()  # uses board.SCL and board.SDA
         mlx = adafruit_mlx90614.MLX90614(i2c)
         object = ''
         try:
             object = mlx.object_temperature
-            self.logging.info(f"Se logro leer la temperatura correctamente. Valor: {e}")
+            self.logging.info(f"Se logro leer la temperatura correctamente. Valor: {object}")
         except Exception as e:
             self.logging.error(f"Error en el sensor de temperatura. InnerException: {e}")
             raise Exception(f"Error en el sensor de temperatura. InnerException: {e}")
@@ -24,6 +25,7 @@ class Calibration:
             return object
 
     def calibrate_spectsensor (self):
+        self.logging.debug("Event calibrate_spectsensor started")
         spec.soft_reset()
         spec.set_gain(3)
         spec.set_integration_time(50)
@@ -44,6 +46,7 @@ class Calibration:
             return results
         
     def calibrate(self):
+        self.logging.info("CALIBRATION STARTED")
         errortemp = ''
         errorspect = ''
         try:
@@ -56,4 +59,5 @@ class Calibration:
             errorspect = e
         if(errortemp != '' or errorspect != ''):
             return f"ERROR!:\n{errortemp}\n{errorspect}"
+        self.logging.info("CALIBRATION ENDED")
         return f"Temperatura: {temp}\n Colores:{spect}"
