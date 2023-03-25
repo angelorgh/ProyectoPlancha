@@ -198,6 +198,7 @@ value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
 
 # Start the event loop
 root.mainloop()
-getcalibration = Calibration.calibrate()
-if(getcalibration.find('ERROR') != -1):
-    tk.messagebox.showerror(getcalibration)
+getcalibration = Calibration()
+calibrated = getcalibration.calibrate()
+if(calibrated.find('ERROR') != -1):
+    tk.messagebox.showerror(calibrated)
