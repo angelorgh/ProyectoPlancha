@@ -52,10 +52,10 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error leyendo sensor de temperatura")
             return 0
-    def readFromSerial(self):
+    def readFromSerial(self, expected = ''):
         self.logging.debug('Event readFromSerial fired')
         try:
-            line = self.ser.read_until().decode()
+            line = self.ser.read_until(expected).decode()
             self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
             return(line)
         except Exception as e:
@@ -93,12 +93,14 @@ class WebSocketServer:
     async def echo(self, websocket):
         async for message in websocket:
             if message == "100":
-                self.writeToSerial('100')
+                self.writeToSerial('1')
                 self.ser.reset_output_buffer()
-                ready = self.readFromSerial() #Validar que se quede esperando o poner un time sleep
+                ready = self.readFromSerial('Waitingstart') #Validar que se quede esperando o poner un time sleep
+                if(ready.strip() == 'Waitingstart'):
+                    # time.sleep(10)
+                    secondstep = self.readFromSerial('Waitingfabric')
                 self.logging.info(f"VALOR DE EMPEZAR: {ready}")
-                if ready.strip() == "Hola":
-                    self.logging.debug("ENTRO AL IF")
+                if secondstep.strip() == "Waitingfabric":
                     rgb = self.useSpectrometrySensor()
                     self.logging.debug(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(rgb)
