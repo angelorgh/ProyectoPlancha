@@ -107,7 +107,7 @@ class WebSocketServer:
                 
                 self.writeToSerial('1')
                 self.ser.reset_output_buffer()
-                time.sleep(12)
+                # time.sleep(12)
                 secondstep = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {secondstep}")
                 if secondstep.strip() == "Waitingfabric":
