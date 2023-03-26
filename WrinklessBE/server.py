@@ -6,6 +6,7 @@ import serial
 from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
 import logging
 import json
+from os import path
 import time
 from WrinklessBE.models.TempRules import TempRule
 from WrinklessBE.models.TempSensor import TempSensorResponse
@@ -20,6 +21,7 @@ class WebSocketServer:
         self.host = host
         self.port = port
         self.logging = logging
+        self.logdirectory = f"./WrinklessBE/data/{self.date}_log.txt"
         self.date = date.today()
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
@@ -135,9 +137,16 @@ class WebSocketServer:
         finally:
             self.logging.info('SERIAL PORT OPEN')
 
+    def clean_logger (self):
+        self.logging.debug('Starting WebSocket')
+        if path.exists(self.logdirectory):
+            self.logging.info("Se borro el log file")
+            open(self.logdirectory, "w").close()
+    
     def start(self):
         self.logging.debug('Starting WebSocket')
         try:
+            self.clean_logger()
             self.start_serial()
             start_server = websockets.serve(self.echo, self.host, self.port)
             asyncio.get_event_loop().run_until_complete(start_server)
