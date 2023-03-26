@@ -21,8 +21,8 @@ class WebSocketServer:
         self.host = host
         self.port = port
         self.logging = logging
-        self.logdirectory = f"./WrinklessBE/data/{self.date}_log.txt"
         self.date = date.today()
+        self.logdirectory = f"./WrinklessBE/data/{self.date}_log.txt"
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
         self.serial = ser
     def useSpectrometrySensor (self):
