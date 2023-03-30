@@ -132,8 +132,8 @@ class WebSocketServer:
                     await websocket.send(str(temprule.time))
             if message == "200":
                 temp = self.useTemperatureSensor()
-                response = self.readFromSerialOnce().strip()
-                self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
+                # response = self.readFromSerialOnce().strip()
+                # self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
                 result = str(round(temp,2)) + "%"+ ''#response
                 await websocket.send(result)
             #Poner logica de cancel
