@@ -143,7 +143,7 @@ class CircularProgressbar(object):
             percent = '{:.0f}%'.format(
                                     round(float(self.extent) / self.full_extent * 100))
             self.canvas.itemconfigure(self.label_id, text=percent)
-        if(percent == '100%' or percent == None):
+        if(percent == '100%'):
             self.toggle_pause()
         self.canvas.after(self.interval, self.step, delta)
 
