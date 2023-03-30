@@ -57,9 +57,7 @@ def on_start_click():
     value1.config(text=f"{parsetemp}°C")
     id = None
     if(progressbar.running):
-        print(f"Id en el if: {id}")
-        id =callTemperature()
-    cancel(id)
+        id = callTemperature()
     # while(progressbar.running):
     #     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     #     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
@@ -76,7 +74,7 @@ def callTemperature ():
     id = root.after(1000, callTemperature)
 
 def cancel(id):
-    print(id)
+    print(f"Id en el if: {id}")
     # global _job
     if id is not None:
         root.after_cancel(id)
@@ -144,7 +142,6 @@ class CircularProgressbar(object):
             percent = '{:.0f}%'.format(
                                     round(float(self.extent) / self.full_extent * 100))
             self.canvas.itemconfigure(self.label_id, text=percent)
-            print(f"Porcentaje: {percent} - Tipo: {type(percent)}" )
         if(percent == '100%'):
             self.toggle_pause()
         self.canvas.after(self.interval, self.step, delta)
