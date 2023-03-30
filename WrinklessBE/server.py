@@ -139,10 +139,10 @@ class WebSocketServer:
             #Poner logica de cancel
     def start_serial(self):
         try:
-            self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=3000)  # Initialize serial connection
+            self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=1000)  # Initialize serial connection
             time.sleep(1)
         except:
-            self.ser = serial.Serial("/dev/ttyACM1", 115200, timeout=3000)
+            self.ser = serial.Serial("/dev/ttyACM1", 115200, timeout=1000)
             time.sleep(1)
         finally:
             self.logging.info('SERIAL PORT OPEN')
