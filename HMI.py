@@ -56,46 +56,30 @@ def on_start_click():
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
     
-    if(progressbar.running):
-        id = callTemperature()
-    cancel(id)
+   
+    callTemperature(progressbar.running)
+    # cancel(id)
     # while(progressbar.running):
     #     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     #     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     #     # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
     #     value1.config(text=f"{parsetemp}°C")
     #value1.config(text="")
-def callTemperature ():
-    global id
+def callTemperature (running):
+    print(f"Sigue corriendo. Valor {running}")
     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
         # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
-    
-    id = root.after(1000, callTemperature)
+    if running:
+        id = root.after(1000, callTemperature)
+    else:
+        root.after_cancel(id)
 
 def cancel(id):
     print(f"Id en el if: {id}")
-    # global _job
     if id is not None:
         root.after_cancel(id)
-        id = None
-
-def goodbye_world():
-    print("Stopping Feed")
-    cancel()
-    button1.configure(command=hello_world)
-
-def hello_world():
-    print("Starting Feed")
-    button1.configure( command=goodbye_world)
-    print_sleep()
-
-def print_sleep():
-    global _job
-    #foo = randint(4000,7500)
-    print("Sleeping", randint(4000,7500))
-    _job = root.after(100,print_sleep)
 
 class CircularProgressbar(object):
     def __init__(self, canvas, x0, y0, x1, y1, width=2, start_ang=0, full_extent=360.):
