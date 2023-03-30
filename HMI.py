@@ -57,6 +57,7 @@ def on_start_click():
     value1.config(text=f"{parsetemp}°C")
     id = None
     if(progressbar.running):
+        print(f"Id en el if: {id}")
         id =callTemperature()
     cancel(id)
     # while(progressbar.running):
@@ -66,16 +67,16 @@ def on_start_click():
     #     value1.config(text=f"{parsetemp}°C")
     #value1.config(text="")
 def callTemperature ():
+    global id
     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
         # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
     
     id = root.after(1000, callTemperature)
-    print(id)
-    return id
 
 def cancel(id):
+    print(id)
     # global _job
     if id is not None:
         root.after_cancel(id)
