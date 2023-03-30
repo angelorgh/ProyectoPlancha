@@ -55,11 +55,11 @@ def on_start_click():
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
-    while(progressbar.running):
-        result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
-        parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
-        # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
-        value1.config(text=f"{parsetemp}°C")
+    # while(progressbar.running):
+    #     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+    #     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
+    #     # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
+    #     value1.config(text=f"{parsetemp}°C")
     #value1.config(text="")
 
 def cancel():
