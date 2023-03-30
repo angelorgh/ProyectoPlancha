@@ -135,6 +135,7 @@ class CircularProgressbar(object):
 
     def step(self, delta):
         """Increment extent and update arc and label displaying how much completed."""
+        percent = None
         if self.running:
             self.extent = (self.extent + delta) % 360
             self.canvas.itemconfigure(self.arc_id, extent=self.extent)
