@@ -55,6 +55,7 @@ def on_start_click():
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
+    
     # while(progressbar.running):
     #     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     #     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
@@ -130,6 +131,7 @@ class CircularProgressbar(object):
             percent = '{:.0f}%'.format(
                                     round(float(self.extent) / self.full_extent * 100))
             self.canvas.itemconfigure(self.label_id, text=percent)
+            print(f"Porcentaje: {percent} - Tipo: {type(percent)}" )
         if(percent == '100'):
             self.toggle_pause()
         self.canvas.after(self.interval, self.step, delta)
