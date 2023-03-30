@@ -34,7 +34,7 @@ class Calibration:
         results = []
         try:
             results = spec.get_calibrated_values()
-            spec.disable_indicator_led()
+            spec.disable_main_led()
             results = [results[5], results[4], results[3], results[2], results[1], results[0]]
             results.append(89)
             results = tuple(results)
