@@ -55,7 +55,7 @@ def on_start_click():
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
-    id = None
+    
     if(progressbar.running):
         id = callTemperature()
     cancel(id)
