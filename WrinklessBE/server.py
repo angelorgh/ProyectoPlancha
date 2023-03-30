@@ -23,10 +23,10 @@ class WebSocketServer:
         self.logging = logging
         self.date = date.today()
         self.logdirectory = f"./WrinklessBE/data/{self.date}_log.txt"
-        self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.DEBUG)
+        self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.INFO)
         self.serial = ser
     def useSpectrometrySensor (self):
-        self.logging.debug('Event useSpectrometrySensor fired')
+        self.logging.info('Event useSpectrometrySensor fired')
         spec.soft_reset()
         spec.set_gain(3)
         spec.set_integration_time(50)
@@ -39,13 +39,13 @@ class WebSocketServer:
             results = [results[5], results[4], results[3], results[2], results[1], results[0]]
             results.append(89)
             results = tuple(results)
-            self.logging.debug(f"Se detecto los colores correctamente. VALOR: {results}")
+            self.logging.info(f"Se detecto los colores correctamente. VALOR: {results}")
         except Exception as e:
             self.logging.error(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
         return results
     
     def useTemperatureSensor (self):
-        self.logging.debug('Event useTemperatureSensor fired')
+        self.logging.info('Event useTemperatureSensor fired')
         try:
             i2c = board.I2C()  # uses board.SCL and board.SDA
             mlx = adafruit_mlx90614.MLX90614(i2c)
@@ -56,7 +56,7 @@ class WebSocketServer:
             self.logging.error(f"Error leyendo sensor de temperatura")
             return 0
     def readFromSerial(self, expected = ''):
-        self.logging.debug('Event readFromSerial fired')
+        self.logging.info('Event readFromSerial fired')
         try:
             if(expected != ''):
                 line = self.ser.read_until(expected).decode()
@@ -69,7 +69,7 @@ class WebSocketServer:
             self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
     
     def readFromSerialOnce(self, expected = ''):
-        self.logging.debug('Event readFromSerial fired')
+        self.logging.info('Event readFromSerial fired')
         try:
             line = self.ser.readline().decode()
             self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
@@ -78,7 +78,7 @@ class WebSocketServer:
             self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
 
     def writeToSerial(self, message):
-        self.logging.debug('Event writeToSerial fired')
+        self.logging.info('Event writeToSerial fired')
         try:
             self.ser.reset_input_buffer()
             self.ser.write(message.encode('utf-8'))
@@ -87,7 +87,7 @@ class WebSocketServer:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado {message}. InnerException: {e}")
     
     def callAiModel (self, rgb):
-        self.logging.debug('Event callAiModel fired')
+        self.logging.info('Event callAiModel fired')
         try:
             name = SpectColorClassifier.classify(rgb)
             self.logging.info(f"Se corrio modelo AI exitosamente. Valor:{name}")
@@ -96,12 +96,12 @@ class WebSocketServer:
             self.logging.error(f"Error corriendo modelo de Color. InnerException: {e}")
     
     def parseRGBColor (self,rgbstring):
-        self.logging.debug('Event parseRGBColor fired')
+        self.logging.info('Event parseRGBColor fired')
         rgb = rgbstring.split(',')
         return rgb
     
     def getTimeTemp(self, color):
-        self.logging.debug(f"Event getTimeTemp fired. COLOR: {color}")
+        self.logging.info(f"Event getTimeTemp fired. COLOR: {color}")
         f = open(f"{this_dir}/data/temprules.json")
         rules = json.load(f)
         return TempRule(rules[color])
@@ -123,7 +123,7 @@ class WebSocketServer:
                 self.logging.info(f"VALOR DE EMPEZAR: {secondstep}")
                 if secondstep.strip() == "Waitingfabric":
                     rgb = self.useSpectrometrySensor()
-                    self.logging.debug(f"VALOR DE RGB: {rgb}")
+                    self.logging.info(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(rgb)
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
@@ -148,13 +148,13 @@ class WebSocketServer:
             self.logging.info('SERIAL PORT OPEN')
 
     def clean_logger (self):
-        self.logging.debug('Starting WebSocket')
+        self.logging.info('Starting WebSocket')
         if path.exists(self.logdirectory):
             self.logging.info("Se borro el log file")
             open(self.logdirectory, "w").close()
     
     def start(self):
-        self.logging.debug('Starting WebSocket')
+        self.logging.info('Starting WebSocket')
         try:
             self.clean_logger()
             self.start_serial()

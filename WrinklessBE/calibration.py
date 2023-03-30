@@ -8,10 +8,10 @@ class Calibration:
     def __init__(self) :
         self.logging = logging
         self.date = date.today()
-        self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_calibration_log.txt", level=logging.DEBUG)
+        self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_calibration_log.txt", level=logging.INFO)
     
     def calibrate_tempsensor (self):
-        self.logging.debug("Event calibrate_tempsensor started")
+        self.logging.info("Event calibrate_tempsensor started")
         i2c = board.I2C()  # uses board.SCL and board.SDA
         mlx = adafruit_mlx90614.MLX90614(i2c)
         object = ''
@@ -25,7 +25,7 @@ class Calibration:
             return object
 
     def calibrate_spectsensor (self):
-        self.logging.debug("Event calibrate_spectsensor started")
+        self.logging.info("Event calibrate_spectsensor started")
         spec.soft_reset()
         spec.set_gain(3)
         spec.set_integration_time(50)
@@ -38,7 +38,7 @@ class Calibration:
             results = [results[5], results[4], results[3], results[2], results[1], results[0]]
             results.append(89)
             results = tuple(results)
-            self.logging.debug(f"Se detecto los colores correctamente. VALOR: {results}")
+            self.logging.info(f"Se detecto los colores correctamente. VALOR: {results}")
         except Exception as e:
             self.logging.error(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
             raise Exception(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
