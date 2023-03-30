@@ -58,6 +58,7 @@ def on_start_click():
     id = None
     if(progressbar.running):
         id = callTemperature()
+    cancel(id)
     # while(progressbar.running):
     #     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     #     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
