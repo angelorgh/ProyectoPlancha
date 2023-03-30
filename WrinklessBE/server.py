@@ -67,6 +67,15 @@ class WebSocketServer:
             return(line)
         except Exception as e:
             self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
+    
+    def readFromSerialOnce(self, expected = ''):
+        self.logging.debug('Event readFromSerial fired')
+        try:
+            line = self.ser.readline().decode()
+            self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
+            return(line)
+        except Exception as e:
+            self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
 
     def writeToSerial(self, message):
         self.logging.debug('Event writeToSerial fired')
@@ -123,8 +132,9 @@ class WebSocketServer:
                     await websocket.send(str(temprule.time))
             if message == "200":
                 temp = self.useTemperatureSensor()
-                response = ''#self.readFromSerial().strip()
-                result = str(round(temp,2)) + "%"+ response#TempSensorResponse(temp, response)
+                response = self.readFromSerialOnce().strip()
+                self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
+                result = str(round(temp,2)) + "%"+ ''#response
                 await websocket.send(result)
             #Poner logica de cancel
     def start_serial(self):
