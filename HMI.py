@@ -51,6 +51,7 @@ def on_start_click():
     callTemperature()
     
 def callTemperature ():
+    global id
     print(f"Sigue corriendo. Valor {progressbar.running}")
     try:
         result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
