@@ -18,14 +18,8 @@ from WrinklessBE.calibration import Calibration
 server = WebSocketServer("localhost", 8000)
 server.start()
 
-
-# server = BackEnd()
-# server.start()
 root = tk.Tk()
 root.geometry("800x480")
-
-#test
-_job = None
 
 #constants
 
@@ -35,9 +29,6 @@ fgcolor1 = '#FF5757'
 poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
 poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
 Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
-
-# Valor
-# estatus =  on_start_click()
 
 def on_start_click():
     global estatus
@@ -58,22 +49,17 @@ def on_start_click():
     
    
     callTemperature(progressbar.running)
-    # cancel(id)
-    # while(progressbar.running):
-    #     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
-    #     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
-    #     # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
-    #     value1.config(text=f"{parsetemp}°C")
-    #value1.config(text="")
+    
 def callTemperature (running):
     print(f"Sigue corriendo. Valor {running}")
     result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
-        # print(f"Valor temperatura {parsetemp} - Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
     if running:
+        print(f"Keep running")
         id = root.after(1000, callTemperature)
     else:
+        print(f"CANCEL: {id}")
         root.after_cancel(id)
 
 def cancel(id):
@@ -194,12 +180,6 @@ if(calibrated.find('ERROR') != -1):
 else:
     tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
 
-
-# def sendMessage():
-#     message = "0"
-#     asyncio.get_event_loop().run_until_complete(client.send_message("100"))
-
-# root.after(50, readSerial)
 
 
 # Start the event loop
