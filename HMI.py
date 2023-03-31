@@ -57,7 +57,7 @@ def callTemperature (running):
     value1.config(text=f"{parsetemp}°C")
     if running:
         print(f"Keep running")
-        id = root.after(1000, callTemperature)
+        id = root.after(1000, callTemperature(running))
     else:
         print(f"CANCEL: {id}")
         root.after_cancel(id)
@@ -130,7 +130,7 @@ root.rowconfigure(0, weight=2)
 root.columnconfigure(1, weight=3)
 root.config(cursor="none")
 root.configure(bg=bgcolor1)
-root.attributes("-fullscreen", False)
+root.attributes("-fullscreen", True)
 
 
 # Load the image files
