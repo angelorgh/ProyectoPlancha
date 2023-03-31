@@ -150,7 +150,7 @@ label1.grid(row=0, column=0, sticky='N', columnspan=3)
 #  Botones izquierda
 button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=on_start_click)
 button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
-button2 = tk.Button(root, text="Cancelar", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=goodbye_world)
+button2 = tk.Button(root, text="Cancelar", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125, highlightthickness=0)
 button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
 
 # CIRCULO PROGESO CENTRO
