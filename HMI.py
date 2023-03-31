@@ -48,17 +48,17 @@ def on_start_click():
     value1.config(text=f"{parsetemp}°C")
     
    
-    callTemperature(progressbar.running)
+    callTemperature()
     
-def callTemperature (running):
-    print(f"Sigue corriendo. Valor {running}")
+def callTemperature ():
+    print(f"Sigue corriendo. Valor {progressbar.running}")
     try:
         result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
         parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
         value1.config(text=f"{parsetemp}°C")
-        if running:
+        if progressbar.running:
             print(f"Keep running")
-            id = root.after(2000, callTemperature(running))
+            id = root.after(2000, callTemperature)
             print(id)
         else:
             print(f"CANCEL: {id}")

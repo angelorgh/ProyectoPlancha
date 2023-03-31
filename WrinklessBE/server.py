@@ -135,6 +135,7 @@ class WebSocketServer:
                 # response = self.readFromSerialOnce().strip()
                 # self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
                 result = str(round(temp,2)) + "%"+ ''#response
+                self.logging.info(f"Valor de respuesta: {result}")
                 await websocket.send(result)
             #Poner logica de cancel
     def start_serial(self):
