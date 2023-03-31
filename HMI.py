@@ -57,7 +57,8 @@ def callTemperature (running):
     value1.config(text=f"{parsetemp}°C")
     if running:
         print(f"Keep running")
-        id = root.after(1000, callTemperature(running))
+        id = root.after(2000, callTemperature(running))
+        print(id)
     else:
         print(f"CANCEL: {id}")
         root.after_cancel(id)
