@@ -180,7 +180,5 @@ if(calibrated.find('ERROR') != -1):
 else:
     tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
 
-
-
 # Start the event loop
 root.mainloop()
