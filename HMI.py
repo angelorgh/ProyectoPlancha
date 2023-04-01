@@ -35,14 +35,14 @@ def on_start_click():
 
     value2.config(text='Iniciando')
 
-    timer = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+    timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     timer = int(timer)
     print(timer)
     value2.config(text='Operando')
     progressbar.start(interval=timer)
     print('Empezo el progress bar')
     #time.sleep(1)
-    result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+    result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
@@ -179,12 +179,34 @@ label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
 value2 = tk.Label(root, text='En Espera',font=poppins2, bg=bgcolor1, fg='white')
 value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
 
-getcalibration = Calibration()
-calibrated = getcalibration.calibrate()
-if(calibrated.find('ERROR') != -1):
-    tk.messagebox.showerror(title= 'ERROR!', message = calibrated)
-else:
-    tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
+def calibrate():
+    button1.config(state='disable')
+    button2.config(state='disable')
+    getcalibration = Calibration()
+    calibrated = getcalibration.calibrate()
+
+    if(calibrated.find('ERROR') != -1):
+        answer = tk.messagebox.askretrycancel(title= 'ERROR!', message = calibrated)
+        if answer:
+            calibrate()
+        else:
+            root.destroy()
+    else:
+        answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
+        if answer2== 'ok':
+            Honning = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+            if isinstance(Honning, Exception) or Honning == 'Stop':
+                answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Honning!')
+                if answer3:
+                    calibrate()
+                else:
+                    root.destroy()
+            else:
+                button1.config(state='normal')
+                button2.config(state='normal')
+                tk.messagebox.showinfo(title= 'READY', message = 'Honning completed')
+
+calibrate()
 
 # Start the event loop
 root.mainloop()

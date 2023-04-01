@@ -74,7 +74,7 @@ class WebSocketServer:
             if(self.ser.in_waiting > 0):
                 line = self.ser.readline().decode()
                 self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
-                return(line)
+                return line
             else:
                 self.logging.info(f"No se encontro nada en el input buffer")
                 return ''
@@ -113,6 +113,17 @@ class WebSocketServer:
     async def echo(self, websocket):
         async for message in websocket:
             if message == "100":
+                try:
+                    self.ser.logging("HONNING STARTED")
+                    self.writeToSerial('Start')
+                    honning = self.readFromSerial().strip()
+                    self.ser.logging("HONNING ENDED")
+                    return honning
+                except Exception as e:
+                    self.logging.error(f"ERROR in honning! {e}")
+                    return e
+
+            if message == "200":
                 
                 #self.ser.reset_output_buffer()
                 # ready = self.readFromSerial('Waitingstart') #Validar que se quede esperando o poner un time sleep
@@ -122,7 +133,6 @@ class WebSocketServer:
                 
                 self.writeToSerial('1')
                 self.ser.reset_output_buffer()
-                # time.sleep(12)
                 secondstep = self.readFromSerial()
                 self.logging.info(f"VALOR DE EMPEZAR: {secondstep}")
                 if secondstep.strip() == "Waitingfabric":
@@ -134,7 +144,7 @@ class WebSocketServer:
                     finish = self.readFromSerial().strip()
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(str(temprule.time))
-            if message == "200":
+            if message == "300":
                 temp = self.useTemperatureSensor()
                 response = self.readFromSerialOnce().strip()
                 self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
