@@ -71,10 +71,13 @@ class WebSocketServer:
     def readFromSerialOnce(self, expected = ''):
         self.logging.info('Event readFromSerial fired')
         try:
-            self.ser.reset_output_buffer()
-            line = self.ser.readline().decode()
-            self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
-            return(line)
+            if(self.ser.in_waiting > 0):
+                line = self.ser.readline().decode()
+                self.logging.info(f"Se leyo de arduino correctamente. Valor {line}")
+                return(line)
+            else:
+                self.logging.info(f"No se encontro nada en el input buffer")
+                return ''
         except Exception as e:
             self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
 
