@@ -49,7 +49,8 @@ def on_start_click():
     
    
     callTemperature()
-    
+
+
 def callTemperature ():
     global id
     print(f"Sigue corriendo. Valor {progressbar.running}")
