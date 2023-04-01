@@ -114,10 +114,10 @@ class WebSocketServer:
         async for message in websocket:
             if message == "100":
                 try:
-                    self.ser.logging("HONNING STARTED")
+                    self.logging.info("HONNING STARTED")
                     self.writeToSerial('Start')
                     honning = self.readFromSerial().strip()
-                    self.ser.logging("HONNING ENDED")
+                    self.logging.info("HONNING ENDED")
                     return honning
                 except Exception as e:
                     self.logging.error(f"ERROR in honning! {e}")
