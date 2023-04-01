@@ -118,10 +118,10 @@ class WebSocketServer:
                     self.writeToSerial('Start')
                     honning = self.readFromSerial().strip()
                     self.logging.info("HONNING ENDED")
-                    return honning
+                    await websocket.send(honning)
                 except Exception as e:
                     self.logging.error(f"ERROR in honning! {e}")
-                    return e
+                    await websocket.send(e)
 
             if message == "200":
                 
