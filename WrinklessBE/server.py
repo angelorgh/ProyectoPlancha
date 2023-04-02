@@ -25,6 +25,7 @@ class WebSocketServer:
         self.logdirectory = f"./WrinklessBE/data/{self.date}_log.txt"
         self.logging.basicConfig(filename=f"./WrinklessBE/data/{self.date}_log.txt", level=logging.INFO)
         self.serial = ser
+
     def useSpectrometrySensor (self):
         self.logging.info('Event useSpectrometrySensor fired')
         spec.soft_reset()
@@ -55,6 +56,7 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error leyendo sensor de temperatura")
             return 0
+        
     def readFromSerial(self, expected = ''):
         self.logging.info('Event readFromSerial fired')
         try:
@@ -68,7 +70,7 @@ class WebSocketServer:
         except Exception as e:
             self.logging.error(f"Error leyendo de arduino. InnerException: {e}")
     
-    def readFromSerialOnce(self, expected = ''):
+    def readFromSerialOnce(self):
         self.logging.info('Event readFromSerial fired')
         try:
             if(self.ser.in_waiting > 0):
@@ -117,7 +119,9 @@ class WebSocketServer:
                     self.logging.info("HONNING STARTED")
                     self.writeToSerial('Start')
                     honning = self.readFromSerial().strip()
-                    self.logging.info("HONNING ENDED")
+                    self.ser.reset_input_buffer()
+                    self.ser.reset_output_buffer()
+                    self.logging.info(f"HONNING ENDED. Valor: {honning}")
                     await websocket.send(honning)
                 except Exception as e:
                     self.logging.error(f"ERROR in honning! {e}")
