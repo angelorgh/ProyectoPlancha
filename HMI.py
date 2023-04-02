@@ -41,7 +41,7 @@ def on_start_click():
     value2.config(text='Operando')
     progressbar.start(interval=timer)
     print('Empezo el progress bar')
-    #time.sleep(1)
+    time.sleep(1)
     result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
@@ -55,7 +55,7 @@ def callTemperature ():
     global id
     print(f"Sigue corriendo. Valor {progressbar.running}")
     try:
-        result = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+        result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
         parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
         value1.config(text=f"{parsetemp}°C")
         if progressbar.running:
