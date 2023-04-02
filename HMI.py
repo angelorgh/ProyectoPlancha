@@ -196,7 +196,7 @@ def calibrate():
         if answer2== 'ok':
             Honning = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
             if isinstance(Honning, Exception) or Honning == 'Stop':
-                answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Honning!')
+                answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Homing!')
                 if answer3:
                     calibrate()
                 else:
@@ -204,7 +204,7 @@ def calibrate():
             else:
                 button1.config(state='normal')
                 button2.config(state='normal')
-                tk.messagebox.showinfo(title= 'READY', message = 'Honning completed')
+                tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
 
 calibrate()
 
