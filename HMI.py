@@ -205,7 +205,11 @@ def calibrate():
                 button1.config(state='normal')
                 button2.config(state='normal')
                 tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
-
+def finishrunnig():
+    finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
+    if finishbutton == 'ok':
+        progressbar = None
+        # canvas.destroy()
 calibrate()
 
 # Start the event loop
