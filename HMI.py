@@ -215,7 +215,9 @@ def calibrate():
 def emergencystop (wasreceived = ''):
     if wasreceived == '':
         wasreceived = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
+        print(f'Valor de letura de arduino para emergencia: {wasreceived}')
     if wasreceived == -1 or wasreceived == '-1':
+        print(f'Valor de parametro para emergencia: {wasreceived}')
         emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
         if emergencystopbutton == 'ok':
             root.quit()
