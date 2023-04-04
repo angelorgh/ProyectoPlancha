@@ -57,10 +57,11 @@ def on_start_click():
         print('Empezo el progress bar')
         callTemperature()
 
-def warmingup (timer, progreswd):
+def warmingup (timer = None, progreswd = None):
     global id2
     resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
     if resultwarmingup == '':
+        print(f"Result warming up: {resultwarmingup}")
         id2 = root.after(1500, warmingup(timer, progreswd))
     if resultwarmingup == 'Planchando':
         progreswd.destroy()
@@ -231,7 +232,7 @@ def calibrate():
 def emergencystop (wasreceived = ''):
     if wasreceived == '':
         wasreceived = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
-        print(f'Valor de letura de arduino para emergencia: {wasreceived}')
+        # print(f'Valor de letura de arduino para emergencia: {wasreceived}')
     if wasreceived == -1 or wasreceived == '-1':
         print(f'Valor de parametro para emergencia: {wasreceived}')
         emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
