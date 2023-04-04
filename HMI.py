@@ -50,7 +50,7 @@ def on_start_click():
         warmingup(timer, progress_window)
     else:
         print(f"Entro a planchando directamente: {timer}")
-        timer = int(timer)
+        timer = int(timer.split("%")[0])
         print(timer)
         value2.config(text='Operando')
         progressbar.start(interval=timer)
