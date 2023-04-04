@@ -137,30 +137,37 @@ class WebSocketServer:
                 
                 self.ser.reset_output_buffer()
                 self.writeToSerial('1')
-                secondstep = self.readFromSerial()
+                secondstep = self.readFromSerial().strip()
                 self.logging.info(f"VALOR DE EMPEZAR: {secondstep}")
-                if secondstep.strip() == "Waitingfabric":
+                if secondstep == 'Emergency':
+                    await websocket.send('-1')
+                if secondstep == "Waitingfabric":
                     rgb = self.useSpectrometrySensor()
                     self.logging.info(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(rgb)
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
                     finish = self.readFromSerial().strip()
+                    if finish  == 'Emergency':
+                        await websocket.send('-1')
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
                     await websocket.send(str(temprule.time))
+
             if message == "300":
                 temp = self.useTemperatureSensor()
                 response = self.readFromSerialOnce().strip()
+                if response  == 'Emergency':
+                    await websocket.send('-1')
                 self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
                 result = str(round(temp,2)) + "%"+ ''#response
                 self.logging.info(f"Valor de respuesta: {result}")
                 await websocket.send(result)
-                
+
             if message == "400":
                 response = self.readFromSerialOnce().strip()
                 if response == 'Emergency':
                     self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
-                await websocket.send(response)
+                await websocket.send('-1')
                     
             #Poner logica de cancel
     def start_serial(self):

@@ -37,6 +37,8 @@ def on_start_click():
     # value2.config(text='Iniciando')
 
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+    if timer == '-1':
+        emergencystop(timer)
     timer = int(timer)
     print(timer)
     value2.config(text='Operando')
@@ -44,6 +46,8 @@ def on_start_click():
     print('Empezo el progress bar')
     time.sleep(1)
     result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
+    if result == '-1':
+        emergencystop(result)
     parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
     print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
     value1.config(text=f"{parsetemp}°C")
@@ -57,6 +61,8 @@ def callTemperature ():
     print(f"Sigue corriendo. Valor {progressbar.running}")
     try:
         result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
+        if result == '-1':
+            emergencystop(result)
         parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
         value1.config(text=f"{parsetemp}°C")
         if progressbar.running:
@@ -206,9 +212,10 @@ def calibrate():
                 button2.config(state='normal')
                 tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
 
-def emergencystop ():
-    result1 = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
-    if result1 == 1 or result1 == '1':
+def emergencystop (wasreceived = ''):
+    if wasreceived == '':
+        wasreceived = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
+    if wasreceived == -1 or wasreceived == '-1':
         emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
         if emergencystopbutton == 'ok':
             root.quit()
