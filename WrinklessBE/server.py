@@ -155,6 +155,7 @@ class WebSocketServer:
                 result = str(round(temp,2)) + "%"+ ''#response
                 self.logging.info(f"Valor de respuesta: {result}")
                 await websocket.send(result)
+                
             if message == "400":
                 response = self.readFromSerialOnce().strip()
                 if response == 'Emergency':

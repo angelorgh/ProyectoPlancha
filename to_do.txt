@@ -1,0 +1,36 @@
+Trata de ver si puedo poner todo el hmi en una clase Aplication y funciona ver ejemplo en chat gpt
+    import tkinter as tk
+
+    class Application(tk.Frame):
+        def __init__(self, master=None):
+            super().__init__(master)
+            self.master = master
+            self.pack()
+            self.create_widgets()
+
+        def create_widgets(self):
+            self.button1 = tk.Button(self)
+            self.button1["text"] = "Button 1"
+            self.button1["command"] = self.button1_click
+            self.button1.pack(side="left")
+
+            self.button2 = tk.Button(self)
+            self.button2["text"] = "Button 2"
+            self.button2["command"] = self.button2_click
+            self.button2.pack(side="left")
+
+        def button1_click(self):
+            # Code that you want to run
+            print("Button 1 clicked.")
+
+        def button2_click(self):
+            # Command to stop the execution of code
+            quit()
+
+    root = tk.Tk()
+    app = Application(master=root)
+    app.mainloop()
+
+Probar que pasa si luego de que termina el proceso de correr se vuelve a presionar el boton de iniciar a ver si el crea la barra de progreso de nuevo
+Ver los metodos para borrar el canvas
+

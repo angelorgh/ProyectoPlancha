@@ -28,7 +28,13 @@ Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
 def on_start_click():
     global estatus
 
-    value2.config(text='Iniciando')
+    # # CIRCULO PROGESO CENTRO
+    # canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
+
+    # progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
+    # canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
+
+    # value2.config(text='Iniciando')
 
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     timer = int(timer)
@@ -157,12 +163,9 @@ button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
 
 # CIRCULO PROGESO CENTRO
 canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
-#canvas.pack(anchor="center")
 
 progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
 canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
-
-#progressbar.step(1)
 
 #  Texto derecha
 label2 = tk.Label(root, text="Temp", font=poppins2, bg=bgcolor1, fg=fgcolor1)
@@ -202,6 +205,7 @@ def calibrate():
                 button1.config(state='normal')
                 button2.config(state='normal')
                 tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
+
 def emergencystop ():
     result1 = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
     if result1 == 1 or result1 == '1':
@@ -215,6 +219,7 @@ def finishrunnig():
     if finishbutton == 'ok':
         progressbar = None
         canvas.destroy()
+
 calibrate()
 emergencystop()
 # Start the event loop
