@@ -228,9 +228,9 @@ def finishrunnig():
     if finishbutton == 'ok':
         progressbar = None
         canvas.destroy()
-        progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
-        canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
-        canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
+        # progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
+        # canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
+        # canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
 
 calibrate()
 emergencystop()
