@@ -195,7 +195,7 @@ def calibrate():
         answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
         if answer2== 'ok':
             Honning = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
-            if isinstance(Honning, Exception) or Honning == 'Stop':
+            if isinstance(Honning, Exception) or Honning == 'Stop' or Honning == '':
                 answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Homing!')
                 if answer3:
                     calibrate()
