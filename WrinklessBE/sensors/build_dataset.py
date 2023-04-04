@@ -60,9 +60,12 @@ try:
         with open("../data/data.json", "w") as file:
             json.dump(data, file)
         print(f"Medida numero #{i}")
-        time.sleep(5)
+        time.sleep(2)
         i+=1
     print("Termino el programa")
+    spec.set_measurement_mode(3)
+    # Turn off the main LED
+    spec.disable_main_led()
 
 except KeyboardInterrupt:
     # Set the board to measure just once (it stops after that)
