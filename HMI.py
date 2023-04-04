@@ -37,24 +37,40 @@ def on_start_click():
     # value2.config(text='Iniciando')
 
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+    
     if timer == '-1':
         emergencystop(timer)
-    timer = int(timer)
-    print(timer)
-    value2.config(text='Operando')
-    progressbar.start(interval=timer)
-    print('Empezo el progress bar')
-    time.sleep(1)
-    result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
-    if result == '-1':
-        emergencystop(result)
-    parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
-    print(f"Valor temperatura {parsetemp}- Valor arduino: {result}")
-    value1.config(text=f"{parsetemp}°C")
-    
-   
-    callTemperature()
+    if timer.split("%")[1] == 'Calentando':
+        print(f"Entro a calentando directamente: {timer}")
+        progress_window = tk.Toplevel(root)
+        progress_window.title('Progress')
+        progress_bar = ttk.Progressbar(progress_window, mode='indeterminate')
+        progress_bar.pack(padx=10, pady=10)
+        progress_bar.start()
+        warmingup(timer, progress_window)
+    else:
+        print(f"Entro a planchando directamente: {timer}")
+        timer = int(timer)
+        print(timer)
+        value2.config(text='Operando')
+        progressbar.start(interval=timer)
+        print('Empezo el progress bar')
+        callTemperature()
 
+def warmingup (timer, progreswd):
+    global id2
+    resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
+    if resultwarmingup == '':
+        id2 = root.after(1500, warmingup(timer, progreswd))
+    if resultwarmingup == 'Planchando':
+        progreswd.destroy()
+        timer = int(timer.split("%")[0])
+        print(timer)
+        value2.config(text='Operando')
+        progressbar.start(interval=timer)
+        print('Empezo el progress bar')
+        root.after_cancel(id2)
+        callTemperature()
 
 def callTemperature ():
     global id

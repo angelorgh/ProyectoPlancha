@@ -151,7 +151,7 @@ class WebSocketServer:
                     if finish  == 'Emergency':
                         await websocket.send('-1')
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
-                    await websocket.send(str(temprule.time))
+                    await websocket.send(str(temprule.time)+ "%"+finish)
 
             if message == "300":
                 temp = self.useTemperatureSensor()
@@ -170,7 +170,13 @@ class WebSocketServer:
                     self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                     await websocket.send('-1')
                 await websocket.send('')
-                    
+
+            if message == "500":
+                response4 = self.readFromSerialOnce().strip()
+                if response4 == 'Emergency':
+                    self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
+                    await websocket.send('-1')
+                await websocket.send(response4)      
             #Poner logica de cancel
     def start_serial(self):
         try:
