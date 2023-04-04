@@ -64,6 +64,9 @@ def warmingup (timer = None, progreswd = None):
         print(f"Result warming up: {resultwarmingup}")
         id2 = root.after(1500, warmingup(timer, progreswd))
     if resultwarmingup == 'Planchando':
+        print(f"Entro a planchando valor de id:{id2}")
+        root.after_cancel(id2)
+        print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {timer}, progress: {progreswd}")
         progreswd.destroy()
         timer = int(timer.split("%")[0])
         print(timer)
