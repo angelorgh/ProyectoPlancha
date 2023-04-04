@@ -65,6 +65,7 @@ def callTemperature ():
         else:
             print(f"CANCEL: {id}")
             root.after_cancel(id)
+            finishrunnig()
     except Exception as e:
         print(f"ERORR: {e}")
 
