@@ -1,5 +1,6 @@
 import json
 import AS7262_Pi as spec
+import time
 
 # Reboot the spectrometer, just in case
 spec.soft_reset()
@@ -16,8 +17,8 @@ spec.set_measurement_mode(2)
 try:
     # Turn on the main LED
     spec.enable_main_led()
-
-    while True:
+    i = 0
+    while i < 21:
         # Get the readings and calculate the label
         results = spec.get_calibrated_values()
         max_red_orange = results[0] + results[1]
@@ -42,7 +43,7 @@ try:
             "B": str(results[4]),
             "V": str(results[5]),
             "temp": str(temp),
-            "label": label
+            "label": ''
         }
 
         # Load the existing data from data.json, if any
@@ -58,6 +59,8 @@ try:
         # Write the updated data to data.json
         with open("../data/data.json", "w") as file:
             json.dump(data, file)
+        time.sleep(5)
+        i+=1
 
 except KeyboardInterrupt:
     # Set the board to measure just once (it stops after that)
