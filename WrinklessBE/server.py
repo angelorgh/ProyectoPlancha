@@ -157,6 +157,7 @@ class WebSocketServer:
                 temp = self.useTemperatureSensor()
                 response = self.readFromSerialOnce().strip()
                 if response  == 'Emergency':
+                    self.logging.warn(f"Se detecto valor de emergencia: {response}")
                     await websocket.send('-1')
                 self.logging.info(f"VALOR QUE LEYO LUEGO DE QUE EMPEZO EL PLANCHADO: {response}")
                 result = str(round(temp,2)) + "%"+ ''#response

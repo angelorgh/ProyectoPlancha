@@ -67,7 +67,7 @@ def callTemperature ():
         value1.config(text=f"{parsetemp}°C")
         if progressbar.running:
             print(f"Keep running")
-            id = root.after(2000, callTemperature)
+            id = root.after(1000, callTemperature)
             print(id)
         else:
             print(f"CANCEL: {id}")
@@ -221,7 +221,7 @@ def emergencystop (wasreceived = ''):
         emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
         if emergencystopbutton == 'ok':
             root.quit()
-    root.after(1000,emergencystop)
+    root.after(2000,emergencystop)
 
 def finishrunnig():
     finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
