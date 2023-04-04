@@ -1,17 +1,12 @@
-# from cgitb import text
-from logging.handlers import RotatingFileHandler
-from random import randint
 import tkinter as tk
 from tkinter import ttk
 from tkinter import font as tkFont
 from turtle import color
-# Import the Image and ImageTk modules to load and display the image
 from PIL import Image, ImageTk
 from WrinklessBE.server import WebSocketServer
 import asyncio
 import WrinklessBE.client as client
 import time
-from WrinklessBE.AI.Spect_ColorClassifier import SpectColorClassifier
 from WrinklessBE.calibration import Calibration
 
 
@@ -192,6 +187,7 @@ def calibrate():
             calibrate()
         else:
             root.destroy()
+            root.qu
     else:
         answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
         if answer2== 'ok':
@@ -201,17 +197,25 @@ def calibrate():
                 if answer3:
                     calibrate()
                 else:
-                    root.destroy()
+                    root.quit()
             else:
                 button1.config(state='normal')
                 button2.config(state='normal')
                 tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
+def emergencystop ():
+    result1 = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
+    if result1 == 1 or result1 == '1':
+        emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
+        if emergencystopbutton == 'ok':
+            root.quit()
+    root.after(1000,emergencystop)
+
 def finishrunnig():
     finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
     if finishbutton == 'ok':
         progressbar = None
         canvas.destroy()
 calibrate()
-
+emergencystop()
 # Start the event loop
 root.mainloop()
