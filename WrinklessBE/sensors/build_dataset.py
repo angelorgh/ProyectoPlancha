@@ -59,8 +59,10 @@ try:
         # Write the updated data to data.json
         with open("../data/data.json", "w") as file:
             json.dump(data, file)
+        print(f"Medida numero #{i}")
         time.sleep(5)
         i+=1
+    print("Termino el programa")
 
 except KeyboardInterrupt:
     # Set the board to measure just once (it stops after that)
