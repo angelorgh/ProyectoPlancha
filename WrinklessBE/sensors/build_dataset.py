@@ -47,7 +47,7 @@ try:
 
         # Load the existing data from data.json, if any
         try:
-            with open("data.json", "r") as file:
+            with open("../data/data.json", "r") as file:
                 data = json.load(file)
         except FileNotFoundError:
             data = {"dataset": []}
@@ -56,7 +56,7 @@ try:
         data["dataset"].append(measurement)
 
         # Write the updated data to data.json
-        with open("data.json", "w") as file:
+        with open("../data/data.json", "w") as file:
             json.dump(data, file)
 
 except KeyboardInterrupt:
