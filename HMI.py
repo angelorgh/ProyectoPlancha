@@ -210,7 +210,7 @@ def finishrunnig():
     finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
     if finishbutton == 'ok':
         progressbar = None
-        # canvas.destroy()
+        canvas.destroy()
 calibrate()
 
 # Start the event loop
