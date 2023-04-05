@@ -35,7 +35,8 @@ def on_start_click():
     # canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
 
     # value2.config(text='Iniciando')
-
+    global timer
+    global progress_window
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     progress_window = tk.Toplevel(root)
     progress_window.title('Progress')
