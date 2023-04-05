@@ -37,17 +37,16 @@ def on_start_click():
     # value2.config(text='Iniciando')
 
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
-    
+    progress_window = tk.Toplevel(root)
+    progress_window.title('Progress')
+    progress_bar1 = ttk.Progressbar(progress_window, mode='indeterminate')
+    progress_bar1.pack(padx=10, pady=10)
     if timer == '-1':
         emergencystop(timer)
     if timer.split("%")[1] == 'Calentando':
         print(f"Entro a calentando directamente: {timer}")
-        progress_window = tk.Toplevel(root)
-        progress_window.title('Progress')
-        progress_bar = ttk.Progressbar(progress_window, mode='indeterminate')
-        progress_bar.pack(padx=10, pady=10)
-        progress_bar.start()
-        warmingup(timer, progress_window)
+        progress_bar1.start()
+        warmingup()
     else:
         print(f"Entro a planchando directamente: {timer}")
         timer = int(timer.split("%")[0])
@@ -57,14 +56,14 @@ def on_start_click():
         print('Empezo el progress bar')
         callTemperature()
 
-def warmingup (timer = None, progreswd = None):
+def warmingup ():
     global id2
     resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
     if resultwarmingup == '':
-        id2 = root.after(1500, warmingup(timer, progreswd))
+        id2 = root.after(1500, warmingup(timer, progress_window))
     if resultwarmingup == 'Planchando':
-        print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {timer}, progress: {progreswd}")
-        progreswd.destroy()
+        print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {timer}, progress: {progress_window}")
+        progress_window.destroy()
         timer = int(timer.split("%")[0])
         print(timer)
         value2.config(text='Operando')
