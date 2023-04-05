@@ -59,6 +59,7 @@ def on_start_click():
 
 def warmingup ():
     global id2
+    global timer, progress_window
     resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
     if resultwarmingup == '':
         id2 = root.after(1500, warmingup)
