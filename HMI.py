@@ -63,7 +63,9 @@ def warmingup ():
     resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
     if resultwarmingup == '':
         id2 = root.after(1500, warmingup)
-    if resultwarmingup == 'Planchando':
+    if resultwarmingup != '':
+        print(resultwarmingup)
+    if resultwarmingup.strip() == 'Planchando':
         print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {timer}, progress: {progress_window}")
         progress_window.destroy()
         timer = int(timer.split("%")[0])
