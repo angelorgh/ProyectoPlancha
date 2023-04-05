@@ -43,9 +43,9 @@ def on_start_click():
     progress_bar1 = ttk.Progressbar(progress_window, mode='indeterminate', length=200)
     progress_bar1.pack(padx=10, pady=10)
     # Center the window on the screen
-    x_pos = (progress_window.winfo_screenwidth() - progress_window.winfo_reqwidth()) // 2
-    y_pos = (progress_window.winfo_screenheight() - progress_window.winfo_reqheight()) // 2
-    progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
+    # x_pos = (progress_window.winfo_screenwidth() - progress_window.winfo_reqwidth()) // 2
+    # y_pos = (progress_window.winfo_screenheight() - progress_window.winfo_reqheight()) // 2
+    # progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
     if timer == '-1':
         emergencystop(timer)
     if timer.split("%")[1] == 'Calentando':
