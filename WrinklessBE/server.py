@@ -181,9 +181,13 @@ class WebSocketServer:
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=1000)  # Initialize serial connection
             time.sleep(1)
+            self.ser.reset_input_buffer()
+            self.ser.reset_output_buffer()
         except:
             self.ser = serial.Serial("/dev/ttyACM1", 115200, timeout=1000)
             time.sleep(1)
+            self.ser.reset_input_buffer()
+            self.ser.reset_output_buffer()
         finally:
             self.logging.info('SERIAL PORT OPEN')
 
