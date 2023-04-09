@@ -240,6 +240,8 @@ class CircularProgressbar(object):
         self.interval = interval  # Msec delay between updates.
         self.increment = self.full_extent / interval
         self.extent = 0
+        fgcolor1 = '#FF5757'
+        poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
         self.arc_id = self.canvas.create_arc(self.x0, self.y0, self.x1, self.y1,
                                              start=self.start_ang, extent=self.extent,
                                              width=self.width, style='arc', outline=fgcolor1)
