@@ -35,3 +35,6 @@ Probar que pasa si luego de que termina el proceso de correr se vuelve a presion
 Probar poner la pantalla de barra de carga en el medio de la pantalla
     Esta comentado en el codigo
 hacer el cancel
+Hacer que luego que se presione el boton de emergencia vuelva a llamar la aplicacion en el bat
+Cambiar el fullscreen en la configuracion de la pantalla
+    self.master.attributes("-fullscreen", False)

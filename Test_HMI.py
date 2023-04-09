@@ -13,8 +13,6 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.pack()
-        
         self.bgcolor1 = '#1E1D1D'
         self.fgcolor1 = '#FF5757'
         self.poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
