@@ -20,6 +20,7 @@ class Application(tk.Frame):
         self.Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
         self.id = None
         self.id2 = None
+        self.start_procedure()
         self.create_widgets()
         self.calibrate()
         self.emergencystop()
