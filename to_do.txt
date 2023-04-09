@@ -32,3 +32,6 @@ Trata de ver si puedo poner todo el hmi en una clase Aplication y funciona ver e
     app.mainloop()
 
 Probar que pasa si luego de que termina el proceso de correr se vuelve a presionar el boton de iniciar a ver si el crea la barra de progreso de nuevo
+Probar poner la pantalla de barra de carga en el medio de la pantalla
+    Esta comentado en el codigo
+hacer el cancel

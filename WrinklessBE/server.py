@@ -9,7 +9,6 @@ import json
 from os import path
 import time
 from WrinklessBE.models.TempRules import TempRule
-from WrinklessBE.models.TempSensor import TempSensorResponse
 from datetime import date
 import os
 import board

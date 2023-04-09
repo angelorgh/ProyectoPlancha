@@ -39,7 +39,7 @@ def on_start_click():
     global progress_window
     timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
     progress_window = tk.Toplevel(root)
-    progress_window.title('Progress')
+    progress_window.title('Calentando')
     progress_bar1 = ttk.Progressbar(progress_window, mode='indeterminate', length=200)
     progress_bar1.pack(padx=10, pady=10)
     # Center the window on the screen
@@ -50,6 +50,7 @@ def on_start_click():
         emergencystop(timer)
     if timer.split("%")[1] == 'Calentando':
         print(f"Entro a calentando directamente: {timer}")
+        value2.config(text='Calentando') #NUEVO NO PROBADO
         progress_bar1.start()
         warmingup()
     else:
@@ -70,6 +71,8 @@ def warmingup ():
         id2 = root.after(1000, warmingup)
     if resultwarmingup != '':
         print(f"Valor diferente: {resultwarmingup}")
+    if resultwarmingup == -1 or resultwarmingup == '-1': #NUEVO NO PROBADO
+        emergencystop(resultwarmingup) #NUEVO NO PROBADO
     if resultwarmingup.strip() == 'Planchando':
         print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {timer}, progress: {progress_window}")
         progress_window.destroy()
@@ -221,8 +224,7 @@ def calibrate():
         if answer:
             calibrate()
         else:
-            root.destroy()
-            root.qu
+            root.quit()
     else:
         answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
         if answer2== 'ok':
