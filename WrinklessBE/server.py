@@ -86,7 +86,10 @@ class WebSocketServer:
         self.logging.info('Event writeToSerial fired')
         try:
             self.ser.reset_input_buffer()
-            self.ser.write(message.encode('utf-8'))
+            if type(message) == int:
+                self.ser.write(message)
+            else:
+                self.ser.write(message.encode('utf-8'))
             self.logging.info(f"Se ha enviado a serial correctamente. Valor: {message}") 
         except Exception as e:
             self.logging.error(f"Error enviando informacion a serial. Valor enviado {message}. InnerException: {e}")
