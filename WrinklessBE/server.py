@@ -181,7 +181,7 @@ class WebSocketServer:
                 await websocket.send(response4)
             if message == "600":
                 self.writeToSerial('Cancel')
-                response5 = self.readFromSerialOnce().strip()
+                response5 = self.readFromSerial().strip()
                 if response5 == 'Emergency':
                     self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                     await websocket.send('-1')
