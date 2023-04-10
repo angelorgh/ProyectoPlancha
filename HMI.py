@@ -16,7 +16,7 @@ class Application(tk.Frame):
         self.bgcolor1 = '#1E1D1D'
         self.fgcolor1 = '#FF5757'
         self.poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
-        self.poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
+        self.poppins2 = tkFont.Font(family='Poppins', size=21, weight=tkFont.BOLD)
         self.Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
         self.id = None
         self.id2 = None
@@ -148,7 +148,7 @@ class Application(tk.Frame):
             self.id2 = None
         self.delete_widgets_circleprogress()
         self.value1.config(text="")
-        self.value2.config(text="Esperando")
+        self.value2.config(text="En Espera")
 
     def warmingup (self):
         resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
