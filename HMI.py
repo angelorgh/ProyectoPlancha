@@ -80,7 +80,7 @@ class Application(tk.Frame):
         #region  Botones izquierda
         self.button1 = tk.Button(self.master, text="Iniciar", bg=self.bgcolor1,bd=0, fg="white", image=self.image1, compound="top", font=self.poppins, width=75, height=125, highlightthickness=0, command=self.on_start_click)
         self.button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
-        self.button2 = tk.Button(self.master, text="Cancelar", bg=self.bgcolor1,bd=0, fg="white", image=self.image2, compound="top", font=self.poppins, width=75, height=125, highlightthickness=0)
+        self.button2 = tk.Button(self.master, text="Cancelar", bg=self.bgcolor1,bd=0, fg="white", image=self.image2, compound="top", font=self.poppins, width=75, height=125, highlightthickness=0, command=self.on_cancel_click)
         self.button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
         #endregion  Botones izquierda
 

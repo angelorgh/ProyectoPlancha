@@ -175,7 +175,17 @@ class WebSocketServer:
                 if response4 == 'Emergency':
                     self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                     await websocket.send('-1')
-                await websocket.send(response4)      
+                await websocket.send(response4)
+            if message == "600":
+                self.writeToSerial(0)
+                response5 = self.readFromSerialOnce().strip()
+                if response5 == 'Emergency':
+                    self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
+                    await websocket.send('-1')
+                if response5 == 'Waitingstart':
+                    await websocket.send(response4)
+                else:
+                    await websocket.send("Error")
             #Poner logica de cancel
     def start_serial(self):
         try:
