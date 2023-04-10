@@ -16,7 +16,7 @@ class Application(tk.Frame):
         self.bgcolor1 = '#1E1D1D'
         self.fgcolor1 = '#FF5757'
         self.poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
-        self.poppins2 = tkFont.Font(family='Poppins', size=21, weight=tkFont.BOLD)
+        self.poppins2 = tkFont.Font(family='Poppins', size=19, weight=tkFont.BOLD)
         self.Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
         self.id = None
         self.id2 = None
@@ -107,14 +107,15 @@ class Application(tk.Frame):
         self.progress_window = None
         self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
         self.progress_window = tk.Toplevel(self.master)
+        x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
+        y_pos = (self.progress_window.winfo_screenheight() - self.progress_window.winfo_reqheight()) // 2
+        self.progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
         self.progress_window.title('Calentando')
-        self.progress_bar1 = ttk.Progressbar(self.progress_window, mode='indeterminate', length=200)
+        self.progress_bar1 = ttk.Progressbar(self.progress_window, mode='indeterminate', length=300)
         self.progress_bar1.pack(padx=10, pady=10)
 
         # Center the window on the screen
-        # x_pos = (progress_window.winfo_screenwidth() - progress_window.winfo_reqwidth()) // 2
-        # y_pos = (progress_window.winfo_screenheight() - progress_window.winfo_reqheight()) // 2
-        # progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
+        
 
         if self.timer == '-1':
             self.emergencystop(self.timer)
@@ -135,6 +136,7 @@ class Application(tk.Frame):
     def on_cancel_click(self):
         self.button1.config(state='disable')
         self.button2.config(state='disable')
+        self.value2.config(text="Cancelando")
         if self.id != None:
             print(f"Se va a cancelar el calltemperature: {self.id}")
             self.master.after_cancel(self.id)
