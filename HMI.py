@@ -135,9 +135,6 @@ class Application(tk.Frame):
     def on_cancel_click(self):
         self.button1.config(state='disable')
         self.button2.config(state='disable')
-        result_cancel = asyncio.get_event_loop().run_until_complete(client.send_message("600"))
-        if result_cancel == -1 or result_cancel == '-1': #NUEVO NO PROBADO
-            self.emergencystop(result_cancel) #NUEVO NO PROBADO
         if self.id != None:
             print(f"Se va a cancelar el calltemperature: {self.id}")
             self.master.after_cancel(self.id)
@@ -146,6 +143,10 @@ class Application(tk.Frame):
             print(f"Se va a cancelar el warmingup: {self.id2}")
             self.master.after_cancel(self.id2)
             self.id2 = None
+        result_cancel = asyncio.get_event_loop().run_until_complete(client.send_message("600"))
+        print(result_cancel)
+        if result_cancel == -1 or result_cancel == '-1': #NUEVO NO PROBADO
+            self.emergencystop(result_cancel) #NUEVO NO PROBADO
         self.delete_widgets_circleprogress()
         if result_cancel == 'Waitingstart':
             self.button1.config(state='normal')
