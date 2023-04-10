@@ -9,106 +9,228 @@ import WrinklessBE.client as client
 import time
 from WrinklessBE.calibration import Calibration
 
+class Application(tk.Frame):
+    def __init__(self, master=None):
+        super().__init__(master)
+        self.master = master
+        self.bgcolor1 = '#1E1D1D'
+        self.fgcolor1 = '#FF5757'
+        self.poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
+        self.poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
+        self.Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
+        self.id = None
+        self.id2 = None
+        self.start_procedure()
+        self.create_widgets()
+        self.calibrate()
+        self.emergencystop()
+    
+    def start_procedure (self):
+        server = WebSocketServer("localhost", 8000)
+        server.start()
+        self.master.geometry("800x480")
+    
+    def create_widgets_circleprogress(self):
+        #region CIRCULO PROGESO CENTRO
+        self.canvas = tk.Canvas(self.master, width=250, height=250, bg=self.bgcolor1, highlightthickness=0)
 
-server = WebSocketServer("localhost", 8000)
-server.start()
+        self.progressbar = CircularProgressbar(self.canvas, 20, 20, 230, 230, 25)
+        self.canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
+        #endregion CIRCULO PROGESO CENTRO
+    
+    def delete_widgets_circleprogress(self):
+        self.canvas.destroy()
+        self.canvas = None
+        self.progressbar = None
 
-root = tk.Tk()
-root.geometry("800x480")
+    def create_widgets(self):
+        self.master.rowconfigure(0, weight=1)  # make buttons stretch when
+        self.master.columnconfigure(0, weight=1)
+        self.master.rowconfigure(0, weight=2)
 
-#constants
+        self.master.columnconfigure(1, weight=3)
+        self.master.config(cursor="none")
+        self.master.configure(bg=self.bgcolor1)
+        self.master.attributes("-fullscreen", False)
 
-bgcolor1 = '#1E1D1D'
-fgcolor1 = '#FF5757'
 
-poppins = tkFont.Font(family='Poppins', size=15, weight=tkFont.BOLD)
-poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
-Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
+        #region Load the image files
+        self.image1 = ImageTk.PhotoImage(Image.open("icons/Play.png").resize((75,75), Image.ANTIALIAS))
+        self.image2 = ImageTk.PhotoImage(Image.open("icons/Stop.png").resize((75,75), Image.ANTIALIAS))
 
-def on_start_click():
-    global estatus
+        #region old code:
+            # self.image1 = Image.open("icons/Play.png")
+            # self.image1 = self.image1.resize((75,75), Image.ANTIALIAS)
+            # self.image1 = ImageTk.PhotoImage(self.image1)
+            # self.image2 = Image.open("icons/Stop.png")
+            # self.image2 = self.image2.resize((75,75), Image.ANTIALIAS)
+            # self.image2 = ImageTk.PhotoImage(self.image2)
+        #endregion old code
+        #endregion Load the image files
 
-    # # CIRCULO PROGESO CENTRO
-    # canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
+        #region Titulo
+        self.label1 = tk.Label(self.master, text="Wrinkless", font=self.Titlepoppins, bg=self.bgcolor1, fg=self.fgcolor1, pady=20)
+        self.label1.grid(row=0, column=0, sticky='N', columnspan=3)
+        #endregion Titulo
 
-    # progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
-    # canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
+        #region CIRCULO PROGESO CENTRO
+        self.create_widgets_circleprogress()
+        #endregion CIRCULO PROGESO CENTRO
 
-    # value2.config(text='Iniciando')
-    global timer
-    global progress_window
-    timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
-    progress_window = tk.Toplevel(root)
-    progress_window.title('Calentando')
-    progress_bar1 = ttk.Progressbar(progress_window, mode='indeterminate', length=200)
-    progress_bar1.pack(padx=10, pady=10)
-    # Center the window on the screen
-    # x_pos = (progress_window.winfo_screenwidth() - progress_window.winfo_reqwidth()) // 2
-    # y_pos = (progress_window.winfo_screenheight() - progress_window.winfo_reqheight()) // 2
-    # progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
-    if timer == '-1':
-        emergencystop(timer)
-    if timer.split("%")[1] == 'Calentando':
-        print(f"Entro a calentando directamente: {timer}")
-        value2.config(text='Calentando') #NUEVO NO PROBADO
-        progress_bar1.start()
-        warmingup()
-    else:
-        print(f"Entro a planchando directamente: {timer}")
-        timer = int(timer.split("%")[0])
-        print(timer)
-        value2.config(text='Operando')
-        progressbar.start(interval=timer)
-        print('Empezo el progress bar')
-        callTemperature()
+        #region  Botones izquierda
+        self.button1 = tk.Button(self.master, text="Iniciar", bg=self.bgcolor1,bd=0, fg="white", image=self.image1, compound="top", font=self.poppins, width=75, height=125, highlightthickness=0, command=self.on_start_click)
+        self.button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
+        self.button2 = tk.Button(self.master, text="Cancelar", bg=self.bgcolor1,bd=0, fg="white", image=self.image2, compound="top", font=self.poppins, width=75, height=125, highlightthickness=0)
+        self.button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
+        #endregion  Botones izquierda
 
-def warmingup ():
-    global id2
-    global timer, progress_window
-    resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
-    print(f"Valor lectura: {resultwarmingup}")
-    if resultwarmingup == '':
-        id2 = root.after(1000, warmingup)
-    if resultwarmingup != '':
-        print(f"Valor diferente: {resultwarmingup}")
-    if resultwarmingup == -1 or resultwarmingup == '-1': #NUEVO NO PROBADO
-        emergencystop(resultwarmingup) #NUEVO NO PROBADO
-    if resultwarmingup.strip() == 'Planchando':
-        print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {timer}, progress: {progress_window}")
-        progress_window.destroy()
-        timer = int(timer.split("%")[0])
-        print(timer)
-        value2.config(text='Operando')
-        progressbar.start(interval=timer)
-        print('Empezo el progress bar')
-        print(f"Se va a cancelar el warmingup: {id2}")
-        root.after_cancel(id2)
-        callTemperature()
+        #region  Texto derecha
+        self.label2 = tk.Label(self.master, text="Temp", font=self.poppins2, bg=self.bgcolor1, fg=self.fgcolor1)
+        self.label2.place(x=-20,relx=1, rely=0.45,relheight=0.20, relwidth=0.20, anchor='e')
+        self.value1 = tk.Label(self.master, text="", font=self.poppins2, bg=self.bgcolor1, fg='white')
+        self.value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
 
-def callTemperature ():
-    global id
-    print(f"Sigue corriendo. Valor {progressbar.running}")
-    try:
-        result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
-        if result == '-1':
-            emergencystop(result)
-        parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
-        value1.config(text=f"{parsetemp}°C")
-        if progressbar.running:
-            print(f"Keep running")
-            id = root.after(1000, callTemperature)
-            print(id)
+        self.label3 = tk.Label(self.master, text="Estatus", font=self.poppins2, bg=self.bgcolor1, fg=self.fgcolor1)
+        self.label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
+        self.value2 = tk.Label(self.master, text='En Espera',font=self.poppins2, bg=self.bgcolor1, fg='white')
+        self.value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
+        #endregion  Texto derecha
+
+    def on_start_click(self):
+        if self.canvas == None:
+            print("Se creo el circulo de nuevo")
+            self.create_widgets_circleprogress()
+            print(f"Se creo el circulo correctamente. Canvas: {self.canvas} - Circulo: {self.progressbar}")
+
+        self.value2.config(text='Iniciando')
+        self.timer = None
+        self.progress_window = None
+        self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+        self.progress_window = tk.Toplevel(self.master)
+        self.progress_window.title('Calentando')
+        self.progress_bar1 = ttk.Progressbar(self.progress_window, mode='indeterminate', length=200)
+        self.progress_bar1.pack(padx=10, pady=10)
+
+        # Center the window on the screen
+        # x_pos = (progress_window.winfo_screenwidth() - progress_window.winfo_reqwidth()) // 2
+        # y_pos = (progress_window.winfo_screenheight() - progress_window.winfo_reqheight()) // 2
+        # progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
+
+        if self.timer == '-1':
+            self.emergencystop(self.timer)
+        if self.timer.split("%")[1] == 'Calentando':
+            print(f"Entro a calentando directamente: {self.timer}")
+            self.value2.config(text='Calentando') #NUEVO NO PROBADO
+            self.progress_bar1.start()
+            self.warmingup()
         else:
-            print(f"CANCEL: {id}")
-            root.after_cancel(id)
-            finishrunnig()
-    except Exception as e:
-        print(f"ERORR: {e}")
+            print(f"Entro a planchando directamente: {self.timer}")
+            self.timer = int(self.timer.split("%")[0])
+            print(self.timer)
+            self.value2.config(text='Operando')
+            self.progressbar.start(interval=self.timer)
+            print('Empezo el progress bar')
+            self.callTemperature()
 
-def cancel(id):
-    print(f"Id en el if: {id}")
-    if id is not None:
-        root.after_cancel(id)
+    def on_cancel_click(self):
+        self.button1.config(state='disable')
+        self.button2.config(state='disable')
+        result_cancel = asyncio.get_event_loop().run_until_complete(client.send_message("600"))
+        if result_cancel == -1 or result_cancel == '-1': #NUEVO NO PROBADO
+            self.emergencystop(result_cancel) #NUEVO NO PROBADO
+        if self.id != None:
+            self.master.after_cancel(self.id)
+            self.id = None
+        if self.id2 != None:
+            self.master.after_cancel(self.id2)
+            self.id2 = None
+        self.delete_widgets_circleprogress()
+        self.value1.config(text="")
+        self.value2.config(text="Esperando")
+
+    def warmingup (self):
+        resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
+        print(f"Valor lectura: {resultwarmingup}")
+        if resultwarmingup == '':
+            self.id2 = self.master.after(1000, self.warmingup)
+        if resultwarmingup != '':
+            print(f"Valor diferente: {resultwarmingup}")
+        if resultwarmingup == -1 or resultwarmingup == '-1': #NUEVO NO PROBADO
+            self.emergencystop(resultwarmingup) #NUEVO NO PROBADO
+        if resultwarmingup.strip() == 'Planchando':
+            print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {self.timer}, progress: {self.progress_window}")
+            self.progress_window.destroy()
+            self.timer = int(self.timer.split("%")[0])
+            print(self.timer)
+            self.value2.config(text='Operando')
+            self.progressbar.start(interval=self.timer)
+            print('Empezo el progress bar')
+            print(f"Se va a cancelar el warmingup: {self.id2}")
+            self.master.after_cancel(self.id2)
+            self.callTemperature()
+
+    def callTemperature (self):
+        self.id
+        print(f"Sigue corriendo. Valor {self.progressbar.running}")
+        try:
+            result = asyncio.get_event_loop().run_until_complete(client.send_message("300"))
+            if result == '-1':
+                self.emergencystop(result)
+            parsetemp = float("{:.2f}".format(float(result.split("%")[0])))
+            self.value1.config(text=f"{parsetemp}°C")
+            if self.progressbar.running:
+                print(f"Keep running")
+                self.id = self.master.after(1000, self.callTemperature)
+                print(self.id)
+            else:
+                print(f"CANCEL: {self.id}")
+                self.master.after_cancel(self.id)
+                self.finishrunnig()
+        except Exception as e:
+            print(f"ERORR: {e}")
+
+    def calibrate(self):
+        self.button1.config(state='disable')
+        self.button2.config(state='disable')
+        getcalibration = Calibration()
+        calibrated = getcalibration.calibrate()
+
+        if(calibrated.find('ERROR') != -1):
+            answer = tk.messagebox.askretrycancel(title= 'ERROR!', message = calibrated)
+            if answer:
+                self.calibrate()
+            else:
+                self.master.quit()
+        else:
+            answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
+            if answer2== 'ok':
+                Honning = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
+                if isinstance(Honning, Exception) or Honning.find('Stop') != -1 or Honning == '':
+                    answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Homing!')
+                    if answer3:
+                        self.calibrate()
+                    else:
+                        self.master.quit()
+                else:
+                    self.button1.config(state='normal')
+                    self.button2.config(state='normal')
+                    tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
+
+    def emergencystop (self, wasreceived = ''):
+        if wasreceived == '':
+            wasreceived = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
+            # print(f'Valor de letura de arduino para emergencia: {wasreceived}')
+        if wasreceived == -1 or wasreceived == '-1':
+            print(f'Valor de parametro para emergencia: {wasreceived}')
+            emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
+            if emergencystopbutton == 'ok':
+                self.master.quit()
+        self.master.after(2000,self.emergencystop)
+
+    def finishrunnig(self):
+        finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
+        if finishbutton == 'ok':
+            self.delete_widgets_circleprogress()
 
 class CircularProgressbar(object):
     def __init__(self, canvas, x0, y0, x1, y1, width=2, start_ang=0, full_extent=360.):
@@ -130,6 +252,8 @@ class CircularProgressbar(object):
         self.interval = interval  # Msec delay between updates.
         self.increment = self.full_extent / interval
         self.extent = 0
+        fgcolor1 = '#FF5757'
+        poppins2 = tkFont.Font(family='Poppins', size=23, weight=tkFont.BOLD)
         self.arc_id = self.canvas.create_arc(self.x0, self.y0, self.x1, self.y1,
                                              start=self.start_ang, extent=self.extent,
                                              width=self.width, style='arc', outline=fgcolor1)
@@ -165,102 +289,7 @@ class CircularProgressbar(object):
     def toggle_pause(self):
         self.running = not self.running
 
-
-root.rowconfigure(0, weight=1)  # make buttons stretch when
-root.columnconfigure(0, weight=1)
-root.rowconfigure(0, weight=2)
-
-root.columnconfigure(1, weight=3)
-root.config(cursor="none")
-root.configure(bg=bgcolor1)
-root.attributes("-fullscreen", False)
-
-
-# Load the image files
-image1 = Image.open("icons/Play.png")
-image1 = image1.resize((75,75), Image.ANTIALIAS)
-image1 = ImageTk.PhotoImage(image1)
-
-image2 = Image.open("icons/Stop.png")
-image2 = image2.resize((75,75), Image.ANTIALIAS)
-image2 = ImageTk.PhotoImage(image2)
-
-label1 = tk.Label(root, text="Wrinkless", font=Titlepoppins, bg=bgcolor1, fg=fgcolor1, pady=20)
-label1.grid(row=0, column=0, sticky='N', columnspan=3)
-
-
-
-#  Botones izquierda
-button1 = tk.Button(root, text="Iniciar", bg=bgcolor1,bd=0, fg="white", image=image1, compound="top", font=poppins, width=75, height=125, highlightthickness=0, command=on_start_click)
-button1.place(x=20, rely=0.5,relheight=0.35, relwidth=0.15, anchor='w')
-button2 = tk.Button(root, text="Cancelar", bg=bgcolor1,bd=0, fg="white", image=image2, compound="top", font=poppins, width=75, height=125, highlightthickness=0)
-button2.place(x=20, rely=0.85, relheight=0.35, relwidth=0.15,anchor='w')
-
-# CIRCULO PROGESO CENTRO
-canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
-
-progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
-canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
-
-#  Texto derecha
-label2 = tk.Label(root, text="Temp", font=poppins2, bg=bgcolor1, fg=fgcolor1)
-label2.place(x=-20,relx=1, rely=0.45,relheight=0.20, relwidth=0.20, anchor='e')
-value1 = tk.Label(root, text="", font=poppins2, bg=bgcolor1, fg='white')
-value1.place(x=-20,relx=1, rely=0.60,relheight=0.20, relwidth=0.20, anchor='e')
-
-label3 = tk.Label(root, text="Estatus", font=poppins2, bg=bgcolor1, fg=fgcolor1)
-label3.place(x=-20,relx=1, rely=0.75,relheight=0.20, relwidth=0.20, anchor='e')
-value2 = tk.Label(root, text='En Espera',font=poppins2, bg=bgcolor1, fg='white')
-value2.place(x=-20,relx=1, rely=0.90,relheight=0.20, relwidth=0.20, anchor='e')
-
-def calibrate():
-    button1.config(state='disable')
-    button2.config(state='disable')
-    getcalibration = Calibration()
-    calibrated = getcalibration.calibrate()
-
-    if(calibrated.find('ERROR') != -1):
-        answer = tk.messagebox.askretrycancel(title= 'ERROR!', message = calibrated)
-        if answer:
-            calibrate()
-        else:
-            root.quit()
-    else:
-        answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
-        if answer2== 'ok':
-            Honning = asyncio.get_event_loop().run_until_complete(client.send_message("100"))
-            if isinstance(Honning, Exception) or Honning.find('Stop') != -1 or Honning == '':
-                answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Homing!')
-                if answer3:
-                    calibrate()
-                else:
-                    root.quit()
-            else:
-                button1.config(state='normal')
-                button2.config(state='normal')
-                tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
-
-def emergencystop (wasreceived = ''):
-    if wasreceived == '':
-        wasreceived = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
-        # print(f'Valor de letura de arduino para emergencia: {wasreceived}')
-    if wasreceived == -1 or wasreceived == '-1':
-        print(f'Valor de parametro para emergencia: {wasreceived}')
-        emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
-        if emergencystopbutton == 'ok':
-            root.quit()
-    root.after(2000,emergencystop)
-
-def finishrunnig():
-    finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
-    if finishbutton == 'ok':
-        progressbar = None
-        canvas.destroy()
-        # progressbar = CircularProgressbar(canvas, 20, 20, 230, 230, 25)
-        # canvas = tk.Canvas(root, width=250, height=250, bg=bgcolor1, highlightthickness=0)
-        # canvas.place(rely=0.65,relx=0.54,relheight=0.5, relwidth=0.40, anchor='center')
-
-calibrate()
-emergencystop()
+root = tk.Tk()
+app = Application(master=root)
 # Start the event loop
-root.mainloop()
+app.mainloop()
