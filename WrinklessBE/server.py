@@ -187,7 +187,7 @@ class WebSocketServer:
                     await websocket.send('-1')
                 if response5 == 'Waitingstart':
                     self.logging.info(f"SE CANCELO EXITOSAMENTE. Valor {response5}")
-                    await websocket.send(response4)
+                    await websocket.send(response5)
                 else:
                     await websocket.send("Error")
             #Poner logica de cancel
