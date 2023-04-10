@@ -147,10 +147,11 @@ class Application(tk.Frame):
             self.master.after_cancel(self.id2)
             self.id2 = None
         self.delete_widgets_circleprogress()
-        self.button1.config(state='disable')
-        self.button2.config(state='disable')
-        self.value1.config(text="")
-        self.value2.config(text="En Espera")
+        if result_cancel == 'Waitingstart':
+            self.button1.config(state='normal')
+            self.button2.config(state='normal')
+            self.value1.config(text="")
+            self.value2.config(text="En Espera")
 
     def warmingup (self):
         resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
