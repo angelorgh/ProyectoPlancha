@@ -139,9 +139,11 @@ class Application(tk.Frame):
         if result_cancel == -1 or result_cancel == '-1': #NUEVO NO PROBADO
             self.emergencystop(result_cancel) #NUEVO NO PROBADO
         if self.id != None:
+            print(f"Se va a cancelar el calltemperature: {self.id}")
             self.master.after_cancel(self.id)
             self.id = None
         if self.id2 != None:
+            print(f"Se va a cancelar el warmingup: {self.id2}")
             self.master.after_cancel(self.id2)
             self.id2 = None
         self.delete_widgets_circleprogress()

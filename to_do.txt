@@ -1,10 +1,10 @@
 Probar que pasa si luego de que termina el proceso de correr se vuelve a presionar el boton de iniciar a ver si el crea la barra de progreso de nuevo
 Probar poner la pantalla de barra de carga en el medio de la pantalla
     Esta comentado en el codigo
-hacer el cancel
 Hacer que luego que se presione el boton de emergencia vuelva a llamar la aplicacion en el bat
 Cambiar el fullscreen en la configuracion de la pantalla
     self.master.attributes("-fullscreen", False)
 Quitar la advertencia de low power en raspberrypi
 Agregar que si esta en el proceso de calentar cierre la pantalla de calentando
 Cambiar el tamaño del progress bar de Calentando y el tamaño del font para el hmi
+Agregar que cuando la aplicacion se cierre se haga el proceso de Cancel
