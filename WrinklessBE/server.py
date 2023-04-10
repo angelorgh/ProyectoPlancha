@@ -186,6 +186,7 @@ class WebSocketServer:
                     self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                     await websocket.send('-1')
                 if response5 == 'Waitingstart':
+                    self.logging.info(f"SE CANCELO EXITOSAMENTE. Valor {response5}")
                     await websocket.send(response4)
                 else:
                     await websocket.send("Error")

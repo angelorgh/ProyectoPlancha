@@ -147,6 +147,8 @@ class Application(tk.Frame):
             self.master.after_cancel(self.id2)
             self.id2 = None
         self.delete_widgets_circleprogress()
+        self.button1.config(state='disable')
+        self.button2.config(state='disable')
         self.value1.config(text="")
         self.value2.config(text="En Espera")
 
