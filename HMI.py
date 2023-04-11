@@ -8,6 +8,7 @@ import asyncio
 import WrinklessBE.client as client
 import time
 from WrinklessBE.calibration import Calibration
+import subprocess
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -233,6 +234,9 @@ class Application(tk.Frame):
             emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
             if emergencystopbutton == 'ok':
                 self.master.quit()
+                script_path = "/home/pi/Desktop/run_HMI.sh"
+                # run the shell script
+                subprocess.call(script_path, shell=True)
         self.master.after(2000,self.emergencystop)
 
     def finishrunnig(self):

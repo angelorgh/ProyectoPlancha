@@ -1,9 +1,5 @@
-Probar poner la pantalla de barra de carga en el medio de la pantalla
-    Esta comentado en el codigo
+
 Hacer que luego que se presione el boton de emergencia vuelva a llamar la aplicacion en el bat
-Quitar la advertencia de low power en raspberrypi
-Agregar que si esta en el proceso de calentar cierre la pantalla de calentando
-Agregar que cuando la aplicacion se cierre por la x se haga el proceso de Cancel
 Cambiar el fullscreen en la configuracion de la pantalla
     self.master.attributes("-fullscreen", False)
 Chequear falta ortografica de todo lo que esta escrito
