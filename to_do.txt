@@ -6,3 +6,4 @@ Agregar que si esta en el proceso de calentar cierre la pantalla de calentando
 Agregar que cuando la aplicacion se cierre por la x se haga el proceso de Cancel
 Cambiar el fullscreen en la configuracion de la pantalla
     self.master.attributes("-fullscreen", False)
+Chequear falta ortografica de todo lo que esta escrito

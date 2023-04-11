@@ -107,15 +107,13 @@ class Application(tk.Frame):
         self.progress_window = None
         self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
         self.progress_window = tk.Toplevel(self.master)
+        # Center the window on the screen
         x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
         y_pos = (self.progress_window.winfo_screenheight() - self.progress_window.winfo_reqheight()) // 2
         self.progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
         self.progress_window.title('Calentando')
         self.progress_bar1 = ttk.Progressbar(self.progress_window, mode='indeterminate', length=300)
         self.progress_bar1.pack(padx=10, pady=10)
-
-        # Center the window on the screen
-        
 
         if self.timer == '-1':
             self.emergencystop(self.timer)
@@ -147,14 +145,16 @@ class Application(tk.Frame):
             self.id2 = None
         result_cancel = asyncio.get_event_loop().run_until_complete(client.send_message("600"))
         print(result_cancel)
-        if result_cancel == -1 or result_cancel == '-1': #NUEVO NO PROBADO
-            self.emergencystop(result_cancel) #NUEVO NO PROBADO
+        if result_cancel == -1 or result_cancel == '-1':
+            self.emergencystop(result_cancel)
         self.delete_widgets_circleprogress()
         if result_cancel == 'Waitingstart':
-            self.button1.config(state='normal')
-            self.button2.config(state='normal')
-            self.value1.config(text="")
-            self.value2.config(text="En Espera")
+            answerCancel = tk.messagebox.showinfo(title= 'Cancelado', message = "Se cancelo exitosamente")
+            if answerCancel == 'ok':
+                self.button1.config(state='normal')
+                self.button2.config(state='normal')
+                self.value1.config(text="")
+                self.value2.config(text="En Espera")
 
     def warmingup (self):
         resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
@@ -163,8 +163,8 @@ class Application(tk.Frame):
             self.id2 = self.master.after(1000, self.warmingup)
         if resultwarmingup != '':
             print(f"Valor diferente: {resultwarmingup}")
-        if resultwarmingup == -1 or resultwarmingup == '-1': #NUEVO NO PROBADO
-            self.emergencystop(resultwarmingup) #NUEVO NO PROBADO
+        if resultwarmingup == -1 or resultwarmingup == '-1': 
+            self.emergencystop(resultwarmingup)
         if resultwarmingup.strip() == 'Planchando':
             print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {self.timer}, progress: {self.progress_window}")
             self.progress_window.destroy()
