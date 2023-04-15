@@ -107,6 +107,10 @@ class Application(tk.Frame):
         self.timer = None
         self.progress_window = None
         self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
+        if self.timer == "Nocolor":
+            answer5 = tk.messagebox.showwarning(title= 'Cancelado', message = "No se detecto ninguna ropa")
+            if answer5 == 'ok':
+                return
         self.progress_window = tk.Toplevel(self.master)
         # Center the window on the screen
         x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2

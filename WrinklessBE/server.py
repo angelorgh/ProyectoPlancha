@@ -130,13 +130,6 @@ class WebSocketServer:
                     await websocket.send(e)
 
             if message == "200":
-                
-                #self.ser.reset_output_buffer()
-                # ready = self.readFromSerial('Waitingstart') #Validar que se quede esperando o poner un time sleep
-                # if(ready.strip() == 'Waitingstart'):
-                #     # time.sleep(10)
-                #     secondstep = self.readFromSerial('Waitingfabric')
-                
                 self.ser.reset_output_buffer()
                 self.writeToSerial('1')
                 secondstep = self.readFromSerial().strip()
@@ -147,6 +140,14 @@ class WebSocketServer:
                     rgb = self.useSpectrometrySensor()
                     self.logging.info(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(rgb)
+                    if color == 'nocolor' or color == 'green':
+                        self.writeToSerial("NoColor")
+                        response6 = self.readFromSerial().strip()
+                        if response6 == "Emergency":
+                            self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
+                            await websocket.send('-1')
+                        if response6 == 'Waitingstart':
+                            await websocket.send("NoColor")
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
                     finish = self.readFromSerial().strip()
