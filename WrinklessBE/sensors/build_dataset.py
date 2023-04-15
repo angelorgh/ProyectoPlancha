@@ -43,7 +43,7 @@ try:
             "B": str(results[4]),
             "V": str(results[5]),
             "temp": str(temp),
-            "label": ''
+            "label": 'nocolor'
         }
 
         # Load the existing data from data.json, if any
