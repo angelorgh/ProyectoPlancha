@@ -142,11 +142,13 @@ class WebSocketServer:
                     color = self.callAiModel(rgb)
                     if color == 'nocolor' or color == 'green':
                         self.writeToSerial("NoColor")
+                        self.logging.info(f"No hay ninguna prenda o la prenda no se puede planchar. Valor: {color}")
                         response6 = self.readFromSerial().strip()
                         if response6 == "Emergency":
                             self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                             await websocket.send('-1')
                         if response6 == 'Waitingstart':
+                            self.logging.info("Se reinicio el proceso porque no se puede procesar el planchado.")
                             await websocket.send("NoColor")
                     temprule = self.getTimeTemp(color)
                     self.writeToSerial(str(temprule.num))
