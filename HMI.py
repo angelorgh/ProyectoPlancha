@@ -211,10 +211,10 @@ class Application(tk.Frame):
         if(calibrated.find('ERROR') != -1):
             answer = tk.messagebox.askretrycancel(title= 'ERROR!', message = calibrated)
             if answer:
-                print(answer)
+                print(f"valor: {answer}")
                 self.calibrate()
             else:
-                print(answer)
+                print(f"valor: {answer}")
                 self.master.quit()
         else:
             answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
