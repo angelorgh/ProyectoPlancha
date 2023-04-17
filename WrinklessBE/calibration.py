@@ -58,6 +58,6 @@ class Calibration:
         except Exception as e2:
             errorspect = e2
         if(errortemp != '' or errorspect != ''):
-            return f"ERROR!:\n{errortemp}\n{errorspect}"
+            return f"ERROR!:\nError en sensor de spectometria: {errortemp}\nError en sensor de temperatura: {errorspect}"
         self.logging.info("CALIBRATION ENDED")
         return f"Temperatura: {temp}\n Colores:{spect}"
