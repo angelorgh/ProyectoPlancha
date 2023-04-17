@@ -56,7 +56,7 @@ class Calibration:
         try:
             spect = self.calibrate_spectsensor()
         except Exception as e2:
-            errorspect = e
+            errorspect = e2
         if(errortemp != '' or errorspect != ''):
             return f"ERROR!:\n{errortemp}\n{errorspect}"
         self.logging.info("CALIBRATION ENDED")
