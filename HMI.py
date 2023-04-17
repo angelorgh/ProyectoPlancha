@@ -215,7 +215,7 @@ class Application(tk.Frame):
                 self.calibrate()
             else:
                 print(f"valor: {answer}")
-                self.master.quit()
+                self.master.destroy()
         else:
             answer2 = tk.messagebox.showinfo(title= 'Calibrated', message = calibrated)
             if answer2== 'ok':
@@ -227,7 +227,7 @@ class Application(tk.Frame):
                         self.calibrate()
                     else:
                         print(answer3)
-                        self.master.quit()
+                        self.master.destroy()
                 else:
                     self.button1.config(state='normal')
                     self.button2.config(state='normal')
