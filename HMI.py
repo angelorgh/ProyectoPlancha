@@ -221,8 +221,10 @@ class Application(tk.Frame):
                 if isinstance(Honning, Exception) or Honning.find('Stop') != -1 or Honning == '':
                     answer3 = tk.messagebox.askretrycancel(title= 'ERROR!', message = 'Error in Homing!')
                     if answer3:
+                        print(answer3)
                         self.calibrate()
                     else:
+                        print(answer3)
                         self.master.quit()
                 else:
                     self.button1.config(state='normal')
