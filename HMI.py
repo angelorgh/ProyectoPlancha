@@ -113,9 +113,11 @@ class Application(tk.Frame):
                 return
         try:
             self.color = self.timer.split("%")[2]
+            print(self.color)
         except Exception as e:
             self.color = ""
             print(f"Error. Valor: {self.timer}.Inner Exception: {e}")
+            print(self.color)
         self.progress_window = tk.Toplevel(self.master)
         # Center the window on the screen
         x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
@@ -190,6 +192,7 @@ class Application(tk.Frame):
             self.master.after_cancel(self.id2)
             self.callTemperature()
     def showFabricMessage(self):
+        print(self.color)
         if self.color == "red":
             tk.messagebox.showinfo(title= 'Tipo de Tela', message = "Se detecto algodón como tipo de tela")
         if self.color == "blue":
