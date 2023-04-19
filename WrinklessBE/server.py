@@ -156,7 +156,7 @@ class WebSocketServer:
                     if finish  == 'Emergency':
                         await websocket.send('-1')
                     self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
-                    await websocket.send(str(temprule.time)+ "%"+finish)
+                    await websocket.send(str(temprule.time)+ "%"+finish+ "%"+color)
 
             if message == "300":
                 temp = self.useTemperatureSensor()

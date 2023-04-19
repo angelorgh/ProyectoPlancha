@@ -111,6 +111,7 @@ class Application(tk.Frame):
             answer5 = tk.messagebox.showwarning(title= 'Cancelado', message = "No se detecto ninguna ropa")
             if answer5 == 'ok':
                 return
+        self.color = self.timer.split("%")[2]
         self.progress_window = tk.Toplevel(self.master)
         # Center the window on the screen
         x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
@@ -173,7 +174,10 @@ class Application(tk.Frame):
         if resultwarmingup.strip() == 'Planchando':
             print(f"Entro a planchando valor de result:{resultwarmingup}, timer: {self.timer}, progress: {self.progress_window}")
             self.progress_window.destroy()
+           
+            self.showFabricMessage()
             self.timer = int(self.timer.split("%")[0])
+
             print(self.timer)
             self.value2.config(text='Operando')
             self.progressbar.start(interval=self.timer)
@@ -181,7 +185,11 @@ class Application(tk.Frame):
             print(f"Se va a cancelar el warmingup: {self.id2}")
             self.master.after_cancel(self.id2)
             self.callTemperature()
-
+    def showFabricMessage(self):
+        if self.color == "red":
+            tk.messagebox.showinfo(title= 'Tipo de Tela', message = "Se detecto algodón como tipo de tela")
+        if self.color == "blue":
+             tk.messagebox.showinfo(title= 'Tipo de Tela', message = "Se detecto poliéster como tipo de tela")
     def callTemperature (self):
         self.id
         print(f"Sigue corriendo. Valor {self.progressbar.running}")
