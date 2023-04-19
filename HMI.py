@@ -111,7 +111,11 @@ class Application(tk.Frame):
             answer5 = tk.messagebox.showwarning(title= 'Cancelado', message = "No se detecto ninguna ropa")
             if answer5 == 'ok':
                 return
-        self.color = self.timer.split("%")[2]
+        try:
+            self.color = self.timer.split("%")[2]
+        except Exception as e:
+            self.color = ""
+            print(f"Error. Valor: {self.timer}.Inner Exception: {e}")
         self.progress_window = tk.Toplevel(self.master)
         # Center the window on the screen
         x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
