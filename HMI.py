@@ -113,38 +113,38 @@ class Application(tk.Frame):
         if self.timer == "NoColor":
             self.emergencystop("nocolor")
             self.master.after_cancel(self.id3)
-        else:
-            try:
-                self.color = self.timer.split("%")[2]
-                print(self.color)
-            except Exception as e:
-                self.color = ""
-                print(f"Error. Valor: {self.timer}.Inner Exception: {e}")
-                print(self.color)
-            self.progress_window = tk.Toplevel(self.master)
-            # Center the window on the screen
-            x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
-            y_pos = (self.progress_window.winfo_screenheight() - self.progress_window.winfo_reqheight()) // 2
-            self.progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
-            self.progress_window.title('Calentando')
-            self.progress_bar1 = ttk.Progressbar(self.progress_window, mode='indeterminate', length=300)
-            self.progress_bar1.pack(padx=10, pady=10)
+        
+        try:
+            self.color = self.timer.split("%")[2]
+            print(self.color)
+        except Exception as e:
+            self.color = ""
+            print(f"Error. Valor: {self.timer}.Inner Exception: {e}")
+            print(self.color)
+        self.progress_window = tk.Toplevel(self.master)
+        # Center the window on the screen
+        x_pos = (self.progress_window.winfo_screenwidth() - self.progress_window.winfo_reqwidth()) // 2
+        y_pos = (self.progress_window.winfo_screenheight() - self.progress_window.winfo_reqheight()) // 2
+        self.progress_window.geometry("+{}+{}".format(x_pos, y_pos)) 
+        self.progress_window.title('Calentando')
+        self.progress_bar1 = ttk.Progressbar(self.progress_window, mode='indeterminate', length=300)
+        self.progress_bar1.pack(padx=10, pady=10)
 
-            if self.timer == '-1':
-                self.emergencystop(self.timer)
-            if self.timer.split("%")[1] == 'Calentando':
-                print(f"Entro a calentando directamente: {self.timer}")
-                self.value2.config(text='Calentando') #NUEVO NO PROBADO
-                self.progress_bar1.start()
-                self.warmingup()
-            else:
-                print(f"Entro a planchando directamente: {self.timer}")
-                self.timer = int(self.timer.split("%")[0])
-                print(self.timer)
-                self.value2.config(text='Operando')
-                self.progressbar.start(interval=self.timer)
-                print('Empezo el progress bar')
-                self.callTemperature()
+        if self.timer == '-1':
+            self.emergencystop(self.timer)
+        if self.timer.split("%")[1] == 'Calentando':
+            print(f"Entro a calentando directamente: {self.timer}")
+            self.value2.config(text='Calentando') #NUEVO NO PROBADO
+            self.progress_bar1.start()
+            self.warmingup()
+        else:
+            print(f"Entro a planchando directamente: {self.timer}")
+            self.timer = int(self.timer.split("%")[0])
+            print(self.timer)
+            self.value2.config(text='Operando')
+            self.progressbar.start(interval=self.timer)
+            print('Empezo el progress bar')
+            self.callTemperature()
 
     def on_cancel_click(self):
         self.button1.config(state='disable')
