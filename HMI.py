@@ -21,6 +21,7 @@ class Application(tk.Frame):
         self.Titlepoppins = tkFont.Font(family='Poppins', size=36, weight=tkFont.BOLD)
         self.id = None
         self.id2 = None
+        self.id3 = None
         self.start_procedure()
         self.create_widgets()
         self.calibrate()
@@ -98,6 +99,8 @@ class Application(tk.Frame):
         #endregion  Texto derecha
 
     def on_start_click(self):
+        if self.id3 == None:
+            self.emergencystop()
         if self.canvas == None:
             print("Se creo el circulo de nuevo")
             self.create_widgets_circleprogress()
@@ -109,6 +112,7 @@ class Application(tk.Frame):
         self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
         if self.timer == "NoColor":
             answer5 = tk.messagebox.showerror(title= 'Cancelado', message = "No se detecto ninguna ropa que se pueda planchar.")
+            self.master.after_cancel(self.id3)
         else:
             try:
                 self.color = self.timer.split("%")[2]
@@ -248,6 +252,7 @@ class Application(tk.Frame):
                     tk.messagebox.showinfo(title= 'READY', message = 'Homing completed')
 
     def emergencystop (self, wasreceived = ''):
+        
         if wasreceived == '':
             wasreceived = asyncio.get_event_loop().run_until_complete(client.send_message("400"))
             # print(f'Valor de letura de arduino para emergencia: {wasreceived}')
@@ -259,7 +264,7 @@ class Application(tk.Frame):
                 # script_path = "/home/pi/Desktop/run_HMI.sh"
                 # # run the shell script
                 # subprocess.call(script_path, shell=True)
-        self.master.after(2000,self.emergencystop)
+        self.id3 = self.master.after(2000,self.emergencystop)
 
     def finishrunnig(self):
         finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
