@@ -1,5 +1,5 @@
 {
-    "red": {"num":1,"temp": 147, "time":900},
-    "blue": {"num":2,"temp": 130, "time":950},
+    "red": {"num":1,"temp": 147, "time":890},
+    "blue": {"num":2,"temp": 130, "time":900},
     "green": {"num":3,"temp": 150, "time":300}
 }
