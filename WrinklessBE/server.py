@@ -115,6 +115,7 @@ class WebSocketServer:
         return TempRule(rules[color])
 
     async def echo(self, websocket):
+        
         async for message in websocket:
             if message == "100":
                 try:
@@ -143,11 +144,11 @@ class WebSocketServer:
                     if color == 'nocolor' or color == 'green':
                         self.writeToSerial('3')
                         self.logging.info(f"No hay ninguna prenda o la prenda no se puede planchar. Valor: {color}")
-                        response6 = self.readFromSerial().strip()
-                        if response6 == "Emergency":
+                        response1 = self.readFromSerial().strip()
+                        if response1 == "Emergency":
                             self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                             await websocket.send('-1')
-                        if response6 == 'Waitingstart':
+                        if response1 == 'Waitingstart':
                             self.logging.info("Se reinicio el proceso porque no se puede procesar el planchado.")
                             await websocket.send("NoColor")
                     temprule = self.getTimeTemp(color)
@@ -193,15 +194,14 @@ class WebSocketServer:
                     await websocket.send(response5)
                 else:
                     await websocket.send("Error")
-            #Poner logica de cancel
             if message == "700":
-                response6 == self.readFromSerial().strip()
-                if response6 == 'Emergency':
+                r6 = self.readFromSerial().strip()
+                if r6 == 'Emergency':
                     self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
                     await websocket.send('-1')
-                if response6 == 'Waitingstart':
-                    self.logging.info(f"SE CANCELO EXITOSAMENTE. Valor {response6}")
-                    await websocket.send(response6)
+                if r6 == 'Waitingstart':
+                    self.logging.info(f"SE CANCELO EXITOSAMENTE. Valor {r6}")
+                    await websocket.send(r6)
 
     def start_serial(self):
         try:
