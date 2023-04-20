@@ -194,6 +194,15 @@ class WebSocketServer:
                 else:
                     await websocket.send("Error")
             #Poner logica de cancel
+            if message == "700":
+                response6 == self.readFromSerial().strip()
+                if response6 == 'Emergency':
+                    self.logging.warn("SE PRESIONO BOTON DE EMERGENCIA")
+                    await websocket.send('-1')
+                if response6 == 'Waitingstart':
+                    self.logging.info(f"SE CANCELO EXITOSAMENTE. Valor {response6}")
+                    await websocket.send(response6)
+
     def start_serial(self):
         try:
             self.ser = serial.Serial("/dev/ttyACM0", 115200, timeout=1000)  # Initialize serial connection

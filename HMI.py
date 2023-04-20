@@ -264,8 +264,16 @@ class Application(tk.Frame):
 
     def finishrunnig(self):
         finishbutton = tk.messagebox.showinfo(title = 'FINISHED!', message = 'Se termino el planchado')
+        finished = asyncio.get_event_loop().run_until_complete(client.send_message("700"))
+        self.value2.config(text='En espera')
         if finishbutton == 'ok':
-            self.delete_widgets_circleprogress()
+            if finished == 'WaitingStart':
+                self.delete_widgets_circleprogress()
+            if finished == -1 or finished == '-1':
+                print(f'Valor de parametro para emergencia: {finished}')
+                emergencystopbutton = tk.messagebox.showwarning(title = 'EMERGENCY!', message = "SE PRESIONO BOTON DE EMERGENCIA. \n Se cerrara el programa")
+                if emergencystopbutton == 'ok':
+                    self.master.quit()
 
 class CircularProgressbar(object):
     def __init__(self, canvas, x0, y0, x1, y1, width=2, start_ang=0, full_extent=360.):
