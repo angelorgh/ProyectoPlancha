@@ -35,7 +35,7 @@ class Calibration:
         try:
             results = spec.get_calibrated_values()
             spec.disable_main_led()
-            results = [results[5], results[4], results[3], results[2], results[1], results[0]]
+            results = [results[0], results[1], results[2], results[3], results[4], results[5]]
             results.append(89)
             results = tuple(results)
             self.logging.info(f"Se detecto los colores correctamente. VALOR: {results}")

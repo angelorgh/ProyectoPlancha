@@ -2,7 +2,8 @@ import json
 from joblib import dump, load
 from os import path
 from sklearn.neural_network import MLPClassifier
-
+import os
+this_dir = os.path.dirname(__file__)
 class SpectColorClassifier:
 
     colors:list = ["blue","green","nocolor","red"]
@@ -32,8 +33,8 @@ class SpectColorClassifier:
 
         model_input = list(map(lambda v: float(v), spect))
         
-        if path.exists("./model.joblib"):
-            model = load("model.joblib")
+        if path.exists(f"{this_dir}/model.joblib"):
+            model = load(f"{this_dir}/model.joblib")
         else:
             print("entrenando red neuronal...")
             model = MLPClassifier(
@@ -42,9 +43,9 @@ class SpectColorClassifier:
                 solver="lbfgs", 
                 max_iter=5000,
             )
-            trainset = SpectColorClassifier.load_data_from_json("train.json")
+            trainset = SpectColorClassifier.load_data_from_json(f"{this_dir}/train.json")
             model.fit(trainset["inputs"], trainset["outputs"])
-            dump(model, "model.joblib")
+            dump(model, f"{this_dir}/model.joblib")
         
         prediction = model.predict([model_input])[0]
         return SpectColorClassifier.colors[prediction]
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     from time import sleep
     from random import randint
 
-    file_path = "test.json"
+    file_path = f"{this_dir}/test.json"
 
     realclass = []
     predictions = []

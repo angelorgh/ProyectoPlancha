@@ -22,8 +22,8 @@ start = time.time()
 #         except Exception as e:
 #             print(f"Error leyendo los valores del sensor de espectrometria. InnerException: {e}")
 #         return results
-
-testrgb = (332,163,283,602,1533,1955,89)#useSpectrometrySensor()
+# 408.3191833496094, 321.0184020996094, 494.6764831542969, 857.8146362304688, 1544.38037109375, 1510.311279296875, 89)
+testrgb = (1510,1544,857,494,321,408,89)#useSpectrometrySensor()
 name = SpectColorClassifier.classify(testrgb)
 
 print(f"{name} - tiempo {time.time()- start}")
