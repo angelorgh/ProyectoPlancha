@@ -110,7 +110,7 @@ class Application(tk.Frame):
         if self.timer == "NoColor":
             answer5 = tk.messagebox.showerror(title= 'Cancelado', message = "No se detecto ninguna ropa que se pueda planchar.")
             if answer5 == 'ok':
-                return
+                print('ok')
         try:
             self.color = self.timer.split("%")[2]
             print(self.color)
