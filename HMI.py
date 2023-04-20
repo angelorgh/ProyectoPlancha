@@ -53,7 +53,7 @@ class Application(tk.Frame):
         self.master.columnconfigure(1, weight=3)
         self.master.config(cursor="none")
         self.master.configure(bg=self.bgcolor1)
-        self.master.attributes("-fullscreen", False)
+        self.master.attributes("-fullscreen", True)
 
 
         #region Load the image files

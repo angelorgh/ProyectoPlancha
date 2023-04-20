@@ -151,14 +151,14 @@ class WebSocketServer:
                         if response1 == 'Waitingstart':
                             self.logging.info("Se reinicio el proceso porque no se puede procesar el planchado.")
                             await websocket.send("NoColor")
-                    else:
-                        temprule = self.getTimeTemp(color)
-                        self.writeToSerial(str(temprule.num))
-                        finish = self.readFromSerial().strip()
-                        if finish  == 'Emergency':
-                            await websocket.send('-1')
-                        self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
-                        await websocket.send(str(temprule.time)+ "%"+finish+ "%"+color)
+                    
+                    temprule = self.getTimeTemp(color)
+                    self.writeToSerial(str(temprule.num))
+                    finish = self.readFromSerial().strip()
+                    if finish  == 'Emergency':
+                        await websocket.send('-1')
+                    self.logging.info(f"MENSAJE RECIBIDO. VALOR{finish}")
+                    await websocket.send(str(temprule.time)+ "%"+finish+ "%"+color)
 
             if message == "300":
                 temp = self.useTemperatureSensor()
