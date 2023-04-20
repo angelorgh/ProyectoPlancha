@@ -141,7 +141,7 @@ class WebSocketServer:
                     self.logging.info(f"VALOR DE RGB: {rgb}")
                     color = self.callAiModel(rgb)
                     if color == 'nocolor' or color == 'green':
-                        self.writeToSerial("NoColor")
+                        self.writeToSerial(0)
                         self.logging.info(f"No hay ninguna prenda o la prenda no se puede planchar. Valor: {color}")
                         response6 = self.readFromSerial().strip()
                         if response6 == "Emergency":
