@@ -1,5 +1,4 @@
 
-Hacer que luego que se presione el boton de emergencia vuelva a llamar la aplicacion en el bat
 Cambiar el fullscreen en la configuracion de la pantalla
     self.master.attributes("-fullscreen", False)
 Chequear falta ortografica de todo lo que esta escrito
