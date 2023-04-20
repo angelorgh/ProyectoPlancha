@@ -111,7 +111,7 @@ class Application(tk.Frame):
         self.progress_window = None
         self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
         if self.timer == "NoColor":
-            answer5 = tk.messagebox.showerror(title= 'Cancelado', message = "No se detecto ninguna ropa que se pueda planchar.")
+            answer5 = tk.messagebox.showinfo(title= 'Cancelado', message = "No se detecto ninguna ropa que se pueda planchar.")
             self.master.after_cancel(self.id3)
         else:
             try:
