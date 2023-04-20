@@ -265,7 +265,7 @@ class Application(tk.Frame):
                 # # run the shell script
                 # subprocess.call(script_path, shell=True)
         if wasreceived == 'nocolor':
-            answer5 = tk.messagebox.showinfo(title= 'Cancelado', message = "No detecto ropa que se pueda planchar")
+            answer5 = tk.messagebox.askretrycancel(title= 'Cancelado', message = "No detecto ropa que se pueda planchar")
         self.id3 = self.master.after(2000,self.emergencystop)
 
     def finishrunnig(self):
