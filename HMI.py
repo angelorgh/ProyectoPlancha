@@ -111,7 +111,7 @@ class Application(tk.Frame):
         self.progress_window = None
         self.timer = asyncio.get_event_loop().run_until_complete(client.send_message("200"))
         if self.timer == "NoColor":
-            answer5 = tk.messagebox.showinfo(title= 'Cancelado', message = "No detecto ropa que se pueda planchar")
+            self.emergencystop("nocolor")
             self.master.after_cancel(self.id3)
         else:
             try:
@@ -264,6 +264,8 @@ class Application(tk.Frame):
                 # script_path = "/home/pi/Desktop/run_HMI.sh"
                 # # run the shell script
                 # subprocess.call(script_path, shell=True)
+        if wasreceived == 'nocolor':
+            answer5 = tk.messagebox.showinfo(title= 'Cancelado', message = "No detecto ropa que se pueda planchar")
         self.id3 = self.master.after(2000,self.emergencystop)
 
     def finishrunnig(self):
