@@ -99,8 +99,6 @@ class Application(tk.Frame):
         #endregion  Texto derecha
 
     def on_start_click(self):
-        if self.id3 == None:
-            self.emergencystop()
         if self.canvas == None:
             print("Se creo el circulo de nuevo")
             self.create_widgets_circleprogress()
@@ -113,7 +111,6 @@ class Application(tk.Frame):
         if self.timer == "NoColor":
             self.emergencystop("nocolor")
             self.master.after_cancel(self.id3)
-        
         try:
             self.color = self.timer.split("%")[2]
             print(self.color)
@@ -175,7 +172,7 @@ class Application(tk.Frame):
         resultwarmingup = asyncio.get_event_loop().run_until_complete(client.send_message("500"))
         print(f"Valor lectura: {resultwarmingup}")
         if resultwarmingup == '':
-            self.id2 = self.master.after(1000, self.warmingup)
+            self.id2 = self.master.after(900, self.warmingup)
         if resultwarmingup != '':
             print(f"Valor diferente: {resultwarmingup}")
         if resultwarmingup == -1 or resultwarmingup == '-1': 
